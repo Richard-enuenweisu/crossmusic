@@ -1,0 +1,111 @@
+html,body {
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100%;
+      }
+body{
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 17px;
+	color: #AFB8BC;
+	display: inline-block;
+	/*font-family: 'PT Sans', sans-serif;*/
+	/*font-family: 'Signika', sans-serif;	*/
+}
+.h1,.h2,.h3,.h4,.h5,.h6{
+	font-family: 'Signika', sans-serif;
+	font-weight: normal;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Josefin Sans', sans-serif;
+}
+a,a:hover{
+	text-decoration: none;
+	color: #fff;
+}
+.push{
+	margin-top: 25px;
+}
+.pusher{
+	margin-top: 50px;
+}
+.pusher-2{
+	margin-top: 70px;
+}
+.pusher-3{
+	margin-top: 100px;
+}
+.form-pill{
+  border-radius: 6.1875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;  
+}
+
+.navbar-brand img{
+  width: 45px;
+  height: auto;
+}
+
+.home-container {
+	background-color: #0B2435;
+	background-image: url('../../images/bg.png');
+	background-size: contain;
+	background-position: right;
+	background-repeat: no-repeat;
+	min-height: 100vh;	
+}
+.home-text-intro{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+.row-pref .category{
+	height: 330px;
+	color: #e8e8e8;
+	margin-bottom: 15px;
+	border-radius: .3em;
+}
+.row-pref .paid {
+	background-color: #0B2435;
+	background-image: url('../../images/paid.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.row-pref .free {
+	background-color: #0B2435;
+	background-image: url('../../images/free.png');
+	background-size: cover;
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.row-pref .pref-text p{
+	font-family: 'Signika', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3.5em;
+	line-height: 70px;
+	/*font-weight: bold;*/
+	z-index: -12;
+	height:330px;
+}
+.row-pref .pref-icons{
+	position: absolute;
+	bottom: 0;
+	left: 0px;
+	padding-left: 40px;
+	margin-bottom: 30px;
+}
+.actions-img{
+	/*width: 100%;*/
+}
+.payment-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 30px;
+}
+.payment-flex img{
+	height:40px;
+	width: auto;
+}
