@@ -8,6 +8,7 @@ body{
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 17px;
 	color: #AFB8BC;
+	background-color: #0B2435;
 	display: inline-block;
 	/*font-family: 'PT Sans', sans-serif;*/
 	/*font-family: 'Signika', sans-serif;	*/
@@ -21,7 +22,7 @@ h1,h2,h3,h4,h5,h6{
 }
 a,a:hover{
 	text-decoration: none;
-	color: #fff;
+	color: #AFB8BC;
 }
 .push{
 	margin-top: 25px;
@@ -40,10 +41,71 @@ a,a:hover{
   padding-left: 1rem;
   padding-right: 1rem;  
 }
-
+.btn-dark-blue{
+	background-color: #042c49;
+	color: #AFB8BC;
+	padding: 7px;
+}
+.btn-custom{
+	background-color: #dc3545;
+	color: #fff !important;
+	font-weight: 500;
+    /*height: 36px;*/
+    /*min-width: 80px;*/
+    outline: none;
+    padding: 12px;	
+}
+.custom-inputs{
+	padding: 16px;
+	height: 45px;
+	border: 0px;	
+}
+.mycheck{
+	padding: 16px;
+	width: 22px;
+	height: 22px;
+}
+.btn-gradient{
+	background: linear-gradient(-45deg,#EC5252 0,#6E1A52 100%);
+	color: #AFB8BC;
+}
+.mycart-button{
+	background-color: #dc3545;
+	color: #fff !important;
+	padding: 7px;
+}
+.btn-fab{
+    padding: 14px;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+	background-color: #dc3545;
+	color: #fff !important; 
+	text-align: center;
+	color: #fff;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5), 3px 3px 3px rgba(0, 0, 0, 0.25);
+	position: fixed;
+	bottom: 30px;
+	right: 20px;
+	font-size: 1.6667em;
+	display: inline-block;
+	/*cursor: default;	   */
+}
+.cart-count{
+    width: 26px;
+    height: 26px;
+	position: absolute;    	
+	bottom: 40px;
+	right: 20px;
+	padding: 5px;
+	font-size: 14px;
+	background-color: #c6313f;
+	border-radius: 50%;	
+}
 .navbar-brand img{
-  width: 45px;
-  height: auto;
+  /*width: 45px;*/
+  /*height: auto;*/
 }
 
 .home-container {
@@ -108,4 +170,297 @@ a,a:hover{
 .payment-flex img{
 	height:40px;
 	width: auto;
+}
+/*free mmusic page css*/
+.page-search-flex{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	/*text-align: center;*/
+}
+/*custom search css here*/
+#custom-search-input {
+    margin:0;
+    padding: 0;
+}
+#custom-search-input .search-query {
+    width:100%;
+    padding-right: 3px;
+    padding-left: 15px;
+    margin-bottom: 0;
+    border: 1px;
+    -webkit-border-radius: 3rem;
+    -moz-border-radius: 3rem;
+    border-radius: 3rem;
+    margin: 5px 5px;
+    color: #6c6c6c;
+    background-color: #eee;
+}
+#custom-search-input button {
+    border: 0;
+    background: none;
+    padding: 14px 18px;
+    position: absolute;
+    top: 0;
+    right:0;
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color:#ccc;
+    cursor: unset;
+    z-index: 2;
+}
+.search-query:focus{
+    z-index: 0;   
+}
+.display .music-ds{
+	box-shadow: 4px 4px 20px 0 rgba(10,10,10,0.3);	
+}
+.paid-cart-icon{
+	position: absolute;
+	bottom: 100px;
+	left: 15px;
+	display: none;
+}
+.display .music-ds:hover .paid-cart-icon {
+	display: block;
+}
+.display .music-img-holder{
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+}
+.display .music-ds .music-img-holder img{
+	width: 100%;
+	height: 150px;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(1.12);
+	transform: scale(1.12);	
+	/*overflow: hidden;*/
+}
+.display .music-ds .music-img-holder img:hover{
+	opacity: 0.5;
+	-webkit-transform: scale(1);
+	transform: scale(1);	
+}
+.display .music-dt{
+	background-color: #042C49;
+	font-size: 14px;
+	padding: 15px;
+	height: 90px;
+	overflow: hidden;
+}
+
+@media (min-width: 768px) and (max-width: 1024px){
+	.display .music-ds .music-img-holder img{
+		height: 150px;
+	}
+	.display .music-img-holder{
+		height: 150px;
+	}		
+}
+@media (max-width: 812px){
+	.display .music-ds .music-img-holder img{
+		height: 230px;
+	}
+	.display .music-img-holder{
+		height: 230px;
+	}	
+	.display .music-dt{
+		height: 60px;
+	}	
+}
+/*music page css here*/
+.music-page-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.music-header-holder{
+	background-image: url(../../images/free.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 480px;
+}
+.header-title{
+	font-size: 14px;
+}
+.music-media{
+	margin-bottom: 20px;
+}
+.music-media .media-body{
+	padding-top: 15px;
+	padding-left: 15px;
+	border-right: 2px solid #AFB8BC;
+}
+.music-media .media-left img{
+	width: 120px;
+	height: auto;
+}
+.music-media .media-details a{
+	color: #6c6c6c;
+}
+.music-media .media-details{
+	box-shadow: 4px 4px 20px 0 rgba(0,0,0,0.13);
+	margin-bottom: 15px;
+}
+.music-ellipse{
+	color: #AFB8BC;	
+}
+.music-ellipse .my-ellipse{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 11;
+    border-radius: 2px;
+	color: #AFB8BC;
+}
+.music-child-details{
+	border-bottom: 1px solid #afb8bc61;
+}
+.music-downloads{
+	color: #afb8bc61;
+}
+.btn-join-modal{
+	background: #fba707;
+    color: #fff;
+    margin: 0 0 1rem 0;
+    padding: 0.9em 2em;
+    /*border-radius: 2rem;*/
+    font-family: inherit;
+    font-size: 1.5rem;
+    -webkit-appearance: none;
+    /*line-height: 1;*/
+    text-align: center;
+    cursor: pointer;	
+}
+.modal-content .modal-img{
+	width: 150px;
+	height: auto;
+}
+.mediPlayer{
+	margin-right: 15px;
+}
+.music-child-details{
+	margin-top: 15px;
+}
+.share-tiny-link{
+	font-size: 14px;
+	border-radius: 3em;
+	padding: 7px;
+	background-color: #cccccc12;
+	font-style: italic;
+}
+/*music-view page css*/
+.music-view-details{
+	padding: 15px;
+}
+
+.music-media .music-view-details img{
+	width: 100%;
+	height: auto;
+}
+.flex-music-details:hover .my-ellipse{
+	opacity: 1;
+}
+
+
+/*footer css here*/
+.bd-footer {
+    padding: 4rem 0;
+    margin-top: 4rem;
+    font-size: 85%;
+    text-align: center;
+    background-color: #052d4a;
+    color: #AFB8BC;
+}
+.bd-footer-links {
+    padding-left: 0;
+    margin-bottom: 1rem;
+    /*font-weight: bold;*/
+}
+.bd-footer-links li {
+    display: inline-block;
+    padding: 5px;
+}
+.bd-footer-links li a {
+    color: #AFB8BC;
+}
+.bd-footer-links li a:hover {
+    color: #eeeeee;
+}	
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+	font-size:18px;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+	font-size:22px;
+	margin-top:-10px;
+}
+#footer ul.social li a,
+#footer ul.quick-links li a{
+	color:#AFB8BC;
+}
+#footer ul.social li a:hover{
+	color:#eeeeee;
+}
+/*ends here*/
+
+.modal-header{
+    background: #6f1b23;
+    /*background: -webkit-linear-gradient(to right,#0d1f30 , #081a22);*/
+    /*background: linear-gradient(to right, #0d1f30 , #081a22);*/
+    border: 0px;
+}
+.modal-footer {
+     /*border-top: 1px solid #dee2e6; */
+     border:0px;
+}
+.modal-content {
+    background-color: #a32e39;
+}
+
+/*pricing page css*/
+.card-pricing.popular {
+    z-index: 1;
+    border: 3px solid #007bff;
+}
+.card-pricing .list-unstyled li {
+    padding: .5rem 0;
+    color: #6c757d;
+}
+.custom-pricing{
+	background-color: #1b5a8436;
+}
+.price-category{
+	border-bottom: none;
+    padding: 28px 30px;
+    /*max-width: 320px;*/
+    text-align: center;
+}
+.myactive{
+	border-right: 1px solid #afb8bc61;
+}
+@media (max-width: 768px){
+	.myactive{
+		border-right: none;
+		border-bottom: 1px solid #afb8bc61;
+	}	
+}
+.payment-img{
+	width: 30%;
+	margin: auto;
+}
+.price-header{
+	text-align: center;
 }

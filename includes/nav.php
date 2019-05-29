@@ -7,7 +7,8 @@
       }
     </style>
     <nav>
-      <div class="navbar navbar-expand-lg bsnav bsnav-light"><a class="navbar-brand" href="index.php"><img src="images/logo.png"></a>
+      <div class="navbar navbar-expand-lg bsnav bsnav-light">
+        <a class="navbar-brand" href="index.php"><img src="images/cross-logo.png"></a>
         <button class="navbar-toggler toggler-spring"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-md-end">
           <ul class="navbar-nav navbar-mobile mr-0">
@@ -29,15 +30,15 @@
                 <li class="nav-item"><a class="nav-link" href="#">Other action</a></li>
               </ul>
             </li> -->
-            <li class="nav-item"><a class="nav-link" href="about.php">Let's do Business</a></li>
-            <li class="nav-item"><a class="nav-link" href="grow.php">Free music</a></li>
-            <li class="nav-item"><a class="nav-link" href="grow.php">Paid music</a></li>
-            <li class="nav-item"><a class="nav-link" href="grow.php">Contact us</a></li>
+            <li class="nav-item"><a class="nav-link" href="pricing.php">Let's do Business</a></li>
+            <li class="nav-item"><a class="nav-link" href="freemusic.php">Free music</a></li>
+            <li class="nav-item"><a class="nav-link" href="paidmusic.php">Paid music</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.php">Contact us</a></li>
             <li class="nav-item dropdown dropdown-right"><a class="nav-link" href="#">Account <i class="caret"></i></a>
               <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="submenu-dropdown.html">Log in</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.php">Log in</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#myModal-1" href="">Create account</a></li>
-                <li class="nav-item"><a class="nav-link" href="submenu-dropdown-transparent.html">Log out</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Log out</a></li>
               </ul>
             </li>
             <!-- <li class="nav-item"><a class="nav-link" href="grow.php">I Sabi Trade</a></li>                       -->
@@ -52,10 +53,10 @@
 
     <div class="modal fade" id="myModal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-center">
-        <div class="modal-dialog .modal-align-center">
+        <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="images/logo.png" style="width: 70px;height: auto;">
+                    <img src="images/cross-logo.png" style="width: 60px;height: auto;">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
                     </button>
                 </div>
@@ -65,14 +66,14 @@
                       <div class="nav-user-category">
                           <h6 class="h6">As a</h6>
                           <h1>USER</h1>
-                          <a href="" class="btn btn-small btn-custom btn-pinky">Register</a>
+                          <a href="" class="btn btn-small btn-custom">Register</a>
                       </div>
                     </div>
                     <div class="col">
                       <div class="nav-user-category">
-                          <h6 class="h6">As a</h6>
-                          <h1>SAVOR</h1>
-                          <a href="" class="btn btn-small btn-custom btn-pinky">Register</a>
+                          <h6 class="h6">As an</h6>
+                          <h1>Artist</h1>
+                          <a href="pricing.php" class="btn btn-small btn-custom">Register</a>
                       </div>
                     </div>                    
                   </div>
