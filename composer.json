@@ -1,0 +1,17 @@
+{
+    "name": "richcraft/cross",
+    "description": "cross music",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "robbryco",
+            "email": "reechiedeclan@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "phpmailer/phpmailer": "^6.0",
+        "league/oauth2-client"
+    }
+}

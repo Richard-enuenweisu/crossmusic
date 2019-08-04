@@ -8,7 +8,7 @@
     </style>
     <nav>
       <div class="navbar navbar-expand-lg bsnav bsnav-light">
-        <a class="navbar-brand" href="index.php"><img src="images/cross-logo.png"></a>
+        <a class="navbar-brand" href="index.php"><img src="images/logo.png"></a>
         <button class="navbar-toggler toggler-spring"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-md-end">
           <ul class="navbar-nav navbar-mobile mr-0">
@@ -38,10 +38,13 @@
               <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="login.php">Log in</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#myModal-1" href="">Create account</a></li>
+                <?php if (isset($_SESSION['USER_ID'])){?>
+                  <li class="nav-item"><a class="nav-link" href="mypage.php">My Page</a></li>
+                <?php } ?>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Log out</a></li>
               </ul>
             </li>
-            <!-- <li class="nav-item"><a class="nav-link" href="grow.php">I Sabi Trade</a></li>                       -->
+            <li class="nav-item"><a class="btn btn-sm btn-primary" href="affiliate.php" style="margin-top: 10px;">Affiliate Marketer</a></li>                      
           </ul>
         </div>
       </div>
@@ -50,13 +53,12 @@
         <div class="navbar"></div>
       </div>      
     </nav>
-
     <div class="modal fade" id="myModal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-center">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="images/cross-logo.png" style="width: 60px;height: auto;">
+                    <img src="images/logo.png" style="width: 45px;height: auto;">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
                     </button>
                 </div>
@@ -66,7 +68,7 @@
                       <div class="nav-user-category">
                           <h6 class="h6">As a</h6>
                           <h1>USER</h1>
-                          <a href="" class="btn btn-small btn-custom">Register</a>
+                          <a href="register.php" class="btn btn-small btn-custom">Register</a>
                       </div>
                     </div>
                     <div class="col">

@@ -8,7 +8,7 @@ body{
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 17px;
 	color: #AFB8BC;
-	background-color: #0B2435;
+	background-color: #0B2435;	
 	display: inline-block;
 	/*font-family: 'PT Sans', sans-serif;*/
 	/*font-family: 'Signika', sans-serif;	*/
@@ -90,6 +90,7 @@ a,a:hover{
 	right: 20px;
 	font-size: 1.6667em;
 	display: inline-block;
+	z-index: 12;
 	/*cursor: default;	   */
 }
 .cart-count{
@@ -116,6 +117,16 @@ a,a:hover{
 	background-repeat: no-repeat;
 	min-height: 100vh;	
 }
+/*.home-container {
+	background-color: #0B2435;
+	background-image: url('../../images/body-bg.png');
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: right;
+	background-repeat: no-repeat;
+	min-height: 100vh;	
+}*/
 .home-text-intro{
 	display: flex;
 	justify-content: center;
@@ -343,7 +354,7 @@ a,a:hover{
 	height: auto;
 }
 .mediPlayer{
-	margin-right: 15px;
+	margin-top: 7px;
 }
 .music-child-details{
 	margin-top: 15px;
@@ -351,6 +362,13 @@ a,a:hover{
 .share-tiny-link{
 	font-size: 14px;
 	border-radius: 3em;
+	padding: 7px;
+	background-color: #cccccc12;
+	font-style: italic;
+}
+.custom-sucess-message{
+	font-size: 14px;
+	/*border-radius: 3em;*/
 	padding: 7px;
 	background-color: #cccccc12;
 	font-style: italic;
@@ -417,7 +435,7 @@ a,a:hover{
 /*ends here*/
 
 .modal-header{
-    background: #6f1b23;
+    background: #ffffff;
     /*background: -webkit-linear-gradient(to right,#0d1f30 , #081a22);*/
     /*background: linear-gradient(to right, #0d1f30 , #081a22);*/
     border: 0px;
@@ -427,7 +445,8 @@ a,a:hover{
      border:0px;
 }
 .modal-content {
-    background-color: #a32e39;
+    background-color: #eee;
+    /*color: #0b2435;*/
 }
 
 /*pricing page css*/
@@ -463,4 +482,200 @@ a,a:hover{
 }
 .price-header{
 	text-align: center;
+}
+
+/*Cart page css here*/
+.shopping-cart{
+	padding-bottom: 50px;
+	/*font-family: 'Montserrat', sans-serif;*/
+}
+.shopping-cart.dark{
+	/*background-color: #1b5a8436;*/
+	/*background-color: #f6f6f6;*/
+}
+.shopping-cart .content{
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+	background-color: #1b5a8436;
+}
+.cart-page-heading{
+	text-align: center;
+}
+.shopping-cart .items{
+	margin: auto;
+}
+.shopping-cart .items .product{
+	padding: 15px;
+	padding-bottom: 20px;
+}
+.shopping-cart .items .product .info{
+	padding-top: 0px;
+	text-align: center;
+}
+.shopping-cart .items .product .info .product-name{
+	font-weight: 600;
+}
+.shopping-cart .items .product .info .product-name .product-info{
+	font-size: 14px;
+	margin-top: 15px;
+}
+.shopping-cart .items .product .info .product-name .product-info .value{
+	font-weight: 400;
+}
+.shopping-cart .items .product .info .quantity .quantity-input{
+    margin: auto;
+    width: 80px;
+}
+.shopping-cart .items .product .info .price{
+	/*margin-top: 15px;*/
+    font-weight: bold;
+    font-size: 22px;
+ }
+.shopping-cart .summary{
+	border-top: 2px solid #dc3545;
+    background-color: #f7fbff;
+    height: 100%;
+    padding: 30px;
+}
+.shopping-cart .summary h3{
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 600;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.shopping-cart .summary .summary-item:not(:last-of-type){
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.shopping-cart .summary .text{
+	font-size: 1em;
+	font-weight: 600;
+}
+.shopping-cart .summary .price{
+	font-size: 1em;
+	float: right;
+}
+.shopping-cart .summary button{
+	margin-top: 20px;
+}
+@media (min-width: 768px) {
+	.shopping-cart .items .product .info {
+	text-align: left; 
+	}
+	.shopping-cart .items .product .info .price {
+		font-weight: bold;
+		font-size: 22px;
+		top: 17px; 
+	}
+	.shopping-cart .items .product .info .quantity {
+		text-align: center; 
+	}
+	.shopping-cart .items .product .info .quantity .quantity-input {
+		padding: 4px 10px;
+		text-align: center; 
+	}
+}
+
+/*toggle button css*/
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+    /*padding-left: 55px;*/
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;    
+    content: '';
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: #dc3545;
+    left: 20px;
+    padding-left: 25px;
+    /*content: 'Artist';*/
+}
+/* Custom checkbox */
+.custom-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #dc3545;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+.custom-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

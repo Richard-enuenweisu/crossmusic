@@ -2,7 +2,6 @@
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
-
 <style type="text/css">
 
 </style>
@@ -28,23 +27,23 @@
 					<div class="pricing-description">
                         <ul class="list-unstyled mt-3 mb-4">
                             <li class="pl-3 pr-3"><i class="fa fa-check"></i>
-                            unlimited uploads of songs & Albums for a year</li>
+                            unlimited song uploads</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check">
                             </i>
                             80% per unit sold</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check">
                             </i>
-                            Monitor sales performance</li>
+                            Affiliate Email Notifications</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check">
                             </i>
-                            Keep 100% of your sales revenue & copyrights
+                            Keep 100% song royalty & copyrights
                         	</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check"></i>
                             Customer Support
                         	</li>
                         </ul>
                     </div>
-					<a href="account.php?acct-type=paid" class="btn btn-custom">Create Account</a>
+					<a href="account.php?acc_type=paid" class="btn btn-custom">Create Account</a>
 					<div class="push">
 						<img class="payment-img" src="images/cross-payment-2.png">
 					</div>									
@@ -59,23 +58,16 @@
 					<div class="pricing-description">
                         <ul class="list-unstyled mt-3 mb-4">
                             <li class="pl-3 pr-3"><i class="fa fa-check"></i>
-                            unlimited uploads of Singles for a year</li>
+                            unlimited song uploads</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check">
                             </i>
                             Free for dowload</li>
-                            <li class="pl-3 pr-3"><i class="fa fa-check">
-                            </i>
-                            Monitor song performance</li>
-                            <li class="pl-3 pr-3"><i class="fa fa-check">
-                            </i>
-                            Keep 100% of your sales revenue & copyrights
-                        	</li>
                             <li class="pl-3 pr-3"><i class="fa fa-check"></i>
                             Customer Support
-                        	</li>
+                        	</li>                            
                         </ul>
                     </div>
-					<a href="account.php?acct-type=free" class="btn btn-custom">Create Account</a>
+					<a href="account.php?acc_type=free" class="btn btn-custom">Create Account</a>
 					<div class="push">
 						<img class="payment-img" src="images/cross-payment-2.png">
 					</div>                    					

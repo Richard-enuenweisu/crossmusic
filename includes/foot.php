@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<footer id="footer" class="bd-footer text-muted">
+<footer id="footer" class="bd-footer">
   <div class="container-fluid">
     <ul class="bd-footer-links">
       <li><a href="pricing.php">Let's Do Business</a></li>
@@ -41,9 +41,9 @@
 	    <!-- <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li> -->
 	  </ul>    
     <p>Promoting the cross in sound and heavenly melodies | <a href="">Privacy Policy</a> | <a href="">Terms and Condition</a></p>
-  <a class="btn-fab" href="cart.php">
-    <span class="cart-count">14</span>
+<!--   <a class="btn-fab" href="cart.php">
+    <span class="cart-count"><?=(isset($quantity))?$quantity:''?></span>
     <i class="fa fa-shopping-cart" aria-hidden="true" ></i>
-  </a>      
+  </a>  -->     
   </div>
 </footer>

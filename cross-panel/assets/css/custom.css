@@ -1,0 +1,22 @@
+.push{
+	margin-top: 25px;
+}
+.pusher{
+	margin-top: 50px;
+}
+.pusher-2{
+	margin-top: 70px;
+}
+.pusher-3{
+	margin-top: 100px;
+}
+.custom-btn{
+	background-color: #0b2435;
+	border-color: #0b2435;
+	color: #fff;
+}
+.custom-alert-success {
+    color: #f5fdf8;
+    background-color: #0b2435;
+    border-color: #0b2435;
+}

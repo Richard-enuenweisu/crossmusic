@@ -1,5 +1,14 @@
-
 <?php
+  require_once  str_replace("\\","/",dirname(__FILE__). '/core/init.php');
+  require_once  str_replace("\\","/",dirname(__FILE__). '/helpers/helpers.php');
+
+  // get free tracks
+  $stmt = $pdo->query("SELECT * FROM trackstbl WHERE price = 0 AND featured = 1 ORDER BY id DESC LIMIT 12");
+  // get free singles
+  $stmt2 = $pdo->query("SELECT * FROM singlestbl WHERE price = 0 AND featured = 1 ORDER BY id DESC LIMIT 12");
+  // get free albums
+  $stmt3 = $pdo->query("SELECT * FROM albumstbl WHERE price = 0 AND featured = 1 ORDER BY id DESC LIMIT 12");  
+
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
@@ -31,78 +40,20 @@
       <span>Latest Songs</span>
       <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
+    <?php while($l_song = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
     <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
       <div class="music-ds">
-        <a href="music-details.php">
+        <a href="free-details.php?freetracks=<?=$l_song['title']?>">
           <div class="music-img-holder">
-            <img src="images/free.png">
+            <img src="<?=$l_song['image']?>">
           </div>
           <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
+            <p><?=$l_song['title']?></p>
           </div>
         </a>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div>                               
+    </div>  
+    <?php endwhile; ?>                            
   </div>
 </div>
 <!-- Add banner section -->
@@ -118,78 +69,20 @@
       <span>Latest Singles</span>
       <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
+    <?php while($l_songles = $stmt2->fetch(PDO::FETCH_ASSOC)) : ?>
     <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
       <div class="music-ds">
-        <a href="">
+        <a href="free-details.php?freesingles=<?=$l_songles['title']?>">
           <div class="music-img-holder">
-            <img src="images/free.png">
+            <img src="<?=$l_songles['image']?>">
           </div>
           <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
+            <p><?=$l_songles['title']?></p>
           </div>
         </a>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div>                               
+    </div>  
+    <?php endwhile; ?>                                  
   </div> 
 </div>
 
@@ -199,78 +92,20 @@
       <span>Latest Albums</span>
       <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
+    <?php while($l_albums = $stmt3->fetch(PDO::FETCH_ASSOC)) : ?>
     <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
       <div class="music-ds">
-        <a href="">
+        <a href="free-details.php?freealbums=<?=$l_albums['title']?>">
           <div class="music-img-holder">
-            <img src="images/free.png">
+            <img src="<?=$l_albums['image']?>">
           </div>
           <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
+            <p><?=$l_albums['title']?></p>
           </div>
         </a>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div> 
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
-      <div class="music-ds">
-        <a href="">
-          <div class="music-img-holder">
-            <img src="images/free.png">
-          </div>
-          <div class="music-dt">
-            <p>Church on fire By Kike Mudigha ft Nathaniel Basey</p>
-          </div>
-        </a>
-      </div>
-    </div>                               
+    </div>  
+    <?php endwhile; ?>                              
   </div> 
 </div>
 
