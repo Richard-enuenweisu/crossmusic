@@ -184,7 +184,7 @@ if (isset($_POST['submit'])) {
 							<!-- <img class="img-fluid" src="./assets/img/logo.png" width="80" alt="Cross logo">						 -->
 						</a>					
 					<div class="text-center">						
-						<span style="font-size: 54px;font-weight: bold;color: #ccc;">&#8358;<?=$balance['balance']?></span>
+						<span style="font-size: 44px;font-weight: bold;color: #ccc;">&#8358;<?=(empty($balance['balance'])?'0.00':$balance['balance'])?></span>
 						<p class="small text-muted">Current Balance</p>
 					</div>
 

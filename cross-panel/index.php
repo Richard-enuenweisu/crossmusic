@@ -56,7 +56,7 @@ if (isset($_SESSION['ARTIST_ID'])) {
 						</div>
 						<?php if($acct_type == 'Paid Account'){?>
 						<div class="col-md-8">														    						
-							<span style="font-size: 54px;font-weight: bold;color: #ccc;">&#8358;<?=$balance['balance']?></span>
+							<span style="font-size: 44px;font-weight: bold;color: #ccc;">&#8358;<?=(empty($balance['balance'])?'0.00':$balance['balance'])?></span>
 							<p class="small text-muted">Current Balance</p>
 							<?php if(empty($row)){?>
 							<a class="btn btn-sm custom-btn px-3" href="account-info.php">

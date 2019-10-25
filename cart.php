@@ -9,12 +9,6 @@
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
 
-<style type="text/css">
-
-	
-</style>
-
-
 
 	<section class="shopping-cart dark ">
 		<div class="container">
@@ -81,7 +75,7 @@
 	 					<div class="summary-item"><span class="text">Discount</span><span class="price">&#8358; 0</span></div>
 	 					<div class="summary-item"><span class="text">Total</span><span class="price">&#8358; <?=(isset($item_price))?$item_price:'0'?>.00</span></div>
 	 					<?php if(isset($item_price) && !empty($item_price)){?>
-                            <script src="https://js.paystack.co/v1/inline.js"></script>                                				
+                            <script src="https://js.paystack.co/v1/inline.js"></script>                            				
 	 						<button type="button" class="btn btn-custom btn-lg btn-block" onclick="payWithPayStack(<?=$item_price?>)">Checkout</button>
 	 					<?php }?>
 		 			</div>

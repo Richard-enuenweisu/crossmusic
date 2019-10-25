@@ -16,8 +16,6 @@ if (isset($_POST['affiliate'])) {
   else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[].='email is not a valid email address'.'<br>';
   }
-
-
   $salted = 'Z%yHrcR8QDhF99CC^ZZ9qe!+k'.$pass.'f+KA??dj7$S$HL4guq$yJ5_3b';
   $hashed = hash('sha224', $salted);
 
@@ -29,6 +27,10 @@ if (isset($_POST['affiliate'])) {
   if ($row < 1) {
     $errors[].='users does not exist!'.'<br>';
   }
+  if ($result['featured'] == 0) {
+    # code...
+    $errors[].='user is blocked!'.'<br>';
+  }   
   if (empty($errors)) {
     $u_id = intval($result['account_id']);
     $success = 'Logged in Successfully! '.'<br>';
@@ -61,6 +63,10 @@ if (isset($_POST['login'])) {
   if ($row < 1) {
     $errors[].='users does not exist!'.'<br>';
   }
+  if ($result['featured'] == 0) {
+    # code...
+    $errors[].='user is blocked!'.'<br>';
+  }   
   if (empty($errors)) {
     $u_id = intval($result['account_id']);
     $success = 'Logged in Successfully! '.'<br>';
@@ -116,15 +122,25 @@ if (isset($_POST['login'])) {
       <h2 class="content-title pusher-2">Affiliate Login</h2>
       <div class="myform-holder">
         <form class="myform" method="post" action="login.php?affiliate">
-          <div class="row">
-            <div class="col-md-12">
+          <div class="row push">
             <?php if(isset($success)){ ?>
-                <span class="text-success"> <?php echo $success; ?></span>
+              <div class="form-control alert alert-success fade show" role="alert">
+                <i class="fa fa-check-circle alert-icon mr-3"></i>
+                <span> <?php echo $success; ?></span>
+                <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
             <?php } else if(isset($errors)){ ?>
-                  <span class="text-danger"><?php echo display_errors($errors); ?></span>
-            <?php } ?>              
-            </div>
-          </div>            
+                <div class="form-control alert alert-danger fade show" role="alert">
+                  <!-- <i class="fa fa-minus-circle alert-icon mr-3"></i> -->
+                  <span><?php echo display_errors($errors); ?></span>
+                  <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            <?php } ?>
+          </div>          
           <div class="myinputs">
             <label for="exampleInputEmail1">Email</label>
             <input class="form-control form-pill" type="email" name="email" aria-describedby="emailHelp" placeholder="Enter Email" value="<?=((isset($email))?$email:'');?>">
@@ -137,7 +153,7 @@ if (isset($_POST['login'])) {
             <button type="submit" class="btn btn-primary form-pill" name="affiliate"><span class="ti-key"></span>Please Login </button>
           </div>
           <br>
-         <i>Are you an artist ? <a class="" href="login.php">click here</a></i>
+         <i>Are you an artist ? <a class="" href="login.php"><b>click here</b></a></i>
         </form>
         <img class="img-login" src="assets/img/login-img.png">                  
         </div>
@@ -149,17 +165,27 @@ if (isset($_POST['login'])) {
     </div>        
     <?php }else{?>  
     <div class="col-md-6" >
-      <h2 class="content-title pusher-2">Admin Login</h2>
+      <h2 class="content-title pusher-2">Artist Login</h2>
       <div class="myform-holder">
         <form class="myform" method="post" action="login.php">
-          <div class="row">
-            <div class="col-md-12">
+          <div class="row push">
             <?php if(isset($success)){ ?>
-                <span class="text-success"> <?php echo $success; ?></span>
+              <div class="form-control alert alert-success fade show" role="alert">
+                <i class="fa fa-check-circle alert-icon mr-3"></i>
+                <span> <?php echo $success; ?></span>
+                <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
             <?php } else if(isset($errors)){ ?>
-                  <span class="text-danger"><?php echo display_errors($errors); ?></span>
-            <?php } ?>              
-            </div>
+                <div class="form-control alert alert-danger fade show" role="alert">
+                  <!-- <i class="fa fa-minus-circle alert-icon mr-3"></i> -->
+                  <span><?php echo display_errors($errors); ?></span>
+                  <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            <?php } ?>
           </div>            
           <div class="myinputs">
             <label for="exampleInputEmail1">Email</label>
@@ -173,7 +199,7 @@ if (isset($_POST['login'])) {
             <button type="submit" class="btn btn-primary form-pill" name="login"><span class="ti-key"></span>Please Login </button>
           </div>
           <br>
-         <i>Affiliate marketer? <a class="" href="login.php?affiliate">click here</a></i>
+         <i>Affiliate marketer? <a class="" href="login.php?affiliate"><b>click here</b></a></i>
         </form>
         <img class="img-login" src="assets/img/login-img.png">                  
         </div>

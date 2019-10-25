@@ -36,6 +36,23 @@ a,a:hover{
 .pusher-3{
 	margin-top: 100px;
 }
+.cust-pad{
+	padding: 1.25rem;
+}
+.cust-shadow{
+	 box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+	/*box-shadow: 0 .15rem 1.75rem 0 rgba(33,37,41,.15)!important;*/
+}
+.cust-shadow:hover{
+	box-shadow: 0 .15rem 1.75rem 0 rgba(33,37,41,.15)!important;
+	/*box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);*/
+}
+.cust-shadow-2{
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+.cust-shadow-3{
+	box-shadow: 0 .15rem 1.75rem 0 rgba(33,37,41,.15)!important;	
+}
 .form-pill{
   border-radius: 6.1875rem;
   padding-left: 1rem;
@@ -47,13 +64,12 @@ a,a:hover{
 	padding: 7px;
 }
 .btn-custom{
-	background-color: #dc3545;
-	color: #fff !important;
-	font-weight: 500;
-    /*height: 36px;*/
-    /*min-width: 80px;*/
-    outline: none;
-    padding: 12px;	
+	color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    height: 50px;
+    border-radius: 0px;
+    padding-top: 13px;
 }
 .custom-inputs{
 	padding: 16px;
@@ -283,6 +299,90 @@ a,a:hover{
 		height: 60px;
 	}	
 }
+@media (max-width: 740px){
+	.display .music-ds .music-img-holder img{
+		height: 150px;
+	}
+	.display .music-img-holder{
+		height: 150px;
+	}	
+	.display .music-dt{
+		height: 75px;
+	}	
+}
+/*blog page section css*/
+.blog-container{
+	min-height: 450px;
+	color: #fff;	
+}
+.ad-head-img{	
+	background-size: cover;
+	background-position: center;
+	height: 100%;
+}
+.blog-search-holder{
+	background-color: #fff;	
+    padding: 50px;
+    /*margin-top:-100px;*/
+}
+@media (max-width: 768px){
+	.blog-search-holder{
+	    padding: 20px;
+	    /*margin-top:-100px;*/
+	}	
+	.track-holder{
+	    padding: 20px;
+	    /*margin-top:-100px;*/
+	}	
+}
+.blog-search-text{
+	color: #fff;
+	padding: 15px;
+}
+.home-search{
+height: 63px;
+line-height: 63px;
+border: 0;
+border-radius: 33px;
+font-size: 20px;	
+border-radius: 0px;	
+border: 1px solid #eee;
+}
+.search-button{
+	color: #fff;background-color: #007bff;border-color: #007bff;border-radius:0px;width: 70px;height:63px;padding: 10px 0px 7px 0px;
+	z-index:5;position: absolute;right:-1px;
+}
+.blog-item-holder{
+	background-color: #fff;
+	margin-bottom: 15px;
+	min-height: 200px;
+}
+.item-image-bg{
+	height: 150px;
+	background-color: #eeeeee;
+}
+.item-image{
+	background-size: cover;
+	background-position: center;
+	background-attachment: scroll;
+	height: 150px;
+	width: 92%;
+	position: absolute;
+	top: 15px;
+	right: 0
+}
+.general{
+    background-image: url(../../images/overlay.svg),
+    linear-gradient(to right, #052d4a, #209ec0); 
+    background-size: cover;
+    z-index: 0;   
+}
+.overlay-image{
+    background-image: url(../../images/overlay-1.png);
+    background-size: cover;
+    min-height: 70px;
+    margin-top: -65px;   	
+}
 /*music page css here*/
 .music-page-flex{
 	display: flex;
@@ -360,6 +460,13 @@ a,a:hover{
 	margin-top: 15px;
 }
 .share-tiny-link{
+	font-size: 14px;
+	border-radius: 3em;
+	padding: 7px;
+	background-color: #cccccc12;
+	font-style: italic;
+}
+#share-tiny-link{
 	font-size: 14px;
 	border-radius: 3em;
 	padding: 7px;

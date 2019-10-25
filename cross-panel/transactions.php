@@ -51,7 +51,7 @@ if (isset($_GET['delete'])) {
 						<div class="card-body">
 							<center><img src="assets/img/trans-img.png" style="width: 40%;"></center>
 								<p style="width: 80%; margin:0px auto;text-align: center;margin-top: 20px;">
-								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+								All your transactions are dynamically arrayed here.
 								</p>
 							<?php if($row < 1 ){?>
 							<div class="text-center pusher" style="font-weight: bold;">

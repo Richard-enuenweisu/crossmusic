@@ -84,7 +84,7 @@ if (isset($_POST['login'])) {
                                     <table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:640px" width="100%">
                                         <tbody><tr>
                                             <td align="center" valign="top" style="padding:40px">
-                                                <a href=" style="text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.mail.com/&amp;source=gmail&amp;ust=1562686520120000&amp;usg=AFQjCNGGDFeD51MH09C3mcNqZD6XyP0pdw"><img src="https://lh3.googleusercontent.com/-HV1s_FW_xZY/XSTFE40_BLI/AAAAAAAAABE/L5qBVwAuPXsPozlicJMmbCW70ZOCXmAEACEwYBhgL/w140-h140-p/logo.png" width="120" style="border:0;color:#ffffff;
+                                                <a href=" style="text-decoration:none" target="_blank" data-saferedirecturl="https://mycrossmusic.com/"><img src="https://lh3.googleusercontent.com/-HV1s_FW_xZY/XSTFE40_BLI/AAAAAAAAABE/L5qBVwAuPXsPozlicJMmbCW70ZOCXmAEACEwYBhgL/w140-h140-p/logo.png" width="120" style="border:0;color:#ffffff;
                                                 font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;height:auto;letter-spacing:-1px;padding:0;margin:0;outline:none;text-align:center;text-decoration:none"></a>
                                             </td>
                                         </tr>
@@ -110,7 +110,7 @@ if (isset($_POST['login'])) {
                                             <td align="center" valign="middle" style="padding-right:40px;padding-bottom:60px;padding-left:40px">
                                                 <table border="0" cellspacing="0" cellpadding="0">
                                                     <tbody><tr>
-                                                        <td align="center" bgcolor="#007C89"><a href="http://localhost/cross/user-email-verified.php?ref='.$reflink.'" style="border-radius:0;border:1px solid #007c89;color:#ffffff;display:inline-block;font-size:16px;font-weight:400;letter-spacing:.3px;padding:20px;text-decoration:none;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;" target="_blank">Activate Account</a>
+                                                        <td align="center" bgcolor="#007C89"><a href="https://mycrossmusic.com/user-email-verified.php?ref='.$reflink.'" style="border-radius:0;border:1px solid #007c89;color:#ffffff;display:inline-block;font-size:16px;font-weight:400;letter-spacing:.3px;padding:20px;text-decoration:none;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;" target="_blank">Activate Account</a>
                                                         </td>
                                                     </tr>
                                                 </tbody></table>
@@ -118,13 +118,13 @@ if (isset($_POST['login'])) {
                                         </tr>
                                         <tr>
                                             <td align="center" valign="top" style="padding-right:40px;padding-bottom:40px;padding-left:40px">
-                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:42px;letter-spacing:normal;margin:0;padding:0;text-align:center">(Just confirming you"re you.)</p>
+                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:42px;letter-spacing:normal;margin:0;padding:0;text-align:center">(Just confirming you are you.)</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center" valign="top" style="border-top:2px solid #efeeea;color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding-top:40px;padding-bottom:40px;text-align:center">
-                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding:0 20px;margin:0;text-align:center">© 2019 Crossmusic<sup>®</sup>, All Rights Reserved.<br><a style="color:#6a655f;text-decoration:none">675 Ponce De Leon Ave NE - Suite 5000 - Atlanta, GA 30308 USA</a></p>
-                                                <a href="#/contact/" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank"> &nbsp; | &nbsp; </span><a href="https://mailchimp.com/legal/terms/" style="color:#007c89;font-weight:500;text-decoration:none" class=" target="_blank" >Terms of Use</a><span class="> &nbsp; | &nbsp; </span><a href="https://mailchimp.com/legal/privacy/" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank">Privacy Policy</a>
+                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding:0 20px;margin:0;text-align:center">© 2019 Crossmusic<sup>®</sup>, All Rights Reserved.</p>
+                                                <a href="https://mycrossmusic.com/contact" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank"> &nbsp; | &nbsp; </span><a href="#" style="color:#007c89;font-weight:500;text-decoration:none" class=" target="_blank" >Terms of Use</a><span class="> &nbsp; | &nbsp; </span><a href="#" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank">Privacy Policy</a>
                                             </td>
                                         </tr>
                                     </tbody></table>
@@ -207,12 +207,12 @@ if (isset($_POST['login'])) {
             	<span class="switcher">Aleady have an account? <a href="login.php">Login</a> </span>
             </div>	
 	           <br>		 											  	  
-        <div class="form-row text-center">      
+        <div class="form-row">      
           <div class="form-group col-md-6">
-        <button type="submit" class="btn btn-primary form-pill" name="login">Sign up <i class="fa fa-user-o"></i></button>
+        <button type="submit" class="btn btn-custom form-pill" name="login">Sign up <i class="fa fa-user-o"></i></button>
           </div>
           <div class="form-group col-md-6">
-        <button type="submit" class="btn btn-secondary form-pill" name="gmail">Sign up with Gmail <i class="fa fa-google"></i></button>
+        <!-- <button type="submit" class="btn btn-secondary form-pill" name="gmail">Sign up with Gmail <i class="fa fa-google"></i></button> -->
           </div>
         </div>       
       </form>

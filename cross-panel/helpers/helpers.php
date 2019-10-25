@@ -43,6 +43,16 @@ function affiliateLogin($user_id)
 	// $_SESSION['success_flash'] = 'You are now logged in';
 	header('refresh:2; url = index2.php');
 }
+function adminLogin($user_id)
+{
+	$_SESSION['ADMIN_ID'] = $user_id;
+	global $db;
+	// $date = date("y-m-d h:m:s");
+
+	// $db->query("UPDATE users SET last_login = '$date' WHERE id = '$user_id'");
+	// $_SESSION['success_flash'] = 'You are now logged in';
+	header('refresh:2; url = admin-index.php');
+}
 function is_logged_in(){
 	if (isset($_SESSION['USER_ID']) && $_SESSION['USER_ID'] > 0) {
 		return true;

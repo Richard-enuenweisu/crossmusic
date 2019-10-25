@@ -21,11 +21,17 @@ if (isset($_POST["add"])) {
     $title = str_replace('&#039;',"",$title);
     $price = ((isset($_POST['price']) && $_POST['price'] != '')?sanitize($_POST['price']):'');
     $duration = ((isset($_POST['duration']) && $_POST['duration'] != '')?sanitize($_POST['duration']):'');
+    $description = ((isset($_POST['description']) && $_POST['description'] != '')?$_POST['description']:'');
+    $lyrics = ((isset($_POST['lyrics']) && $_POST['lyrics'] != '')?$_POST['lyrics']:'');    
+    $songby = ((isset($_POST['songby']) && $_POST['songby'] != '')?sanitize($_POST['songby']):'');
+    $songby = str_replace('&#039;',"",$songby);
     $track = $_FILES['track']['name'];
 
     if (!$acct_type == 'Paid Account') {
     	# code...
     	$price = 0;
+		$description ='No Details avaialable.';			
+		$lyrics ='No Details avaialable.';
     }
     //get cover extension
     $cover_piece = explode('.', $artcover);
@@ -39,7 +45,7 @@ if (isset($_POST["add"])) {
     $errors = array();
     $success;
 
-    if (empty($artcover) || empty($title) || empty($price) || empty($duration) || empty($track)) {
+    if (empty($artcover) || empty($title) || empty($duration) || empty($track) || empty($description) || empty($lyrics) || empty($songby)) {
       # code...
       $errors[].= "Found empty fields!.";
     }    
@@ -87,8 +93,8 @@ if (isset($_POST["add"])) {
 			//short-track path
 			$short_track_path = 'music/short_'.$track_name.$timestamp.'.'.$track_ext;  
 			      	
-            $insert_query = $pdo->prepare("INSERT INTO  trackstbl ( `album_id`, `title`, `price`, `duration`, `short_url`, `long_url`, `image`) VALUES (:album_id, :title, :price, :duration, :short_url, :long_url, :image)");
-            $insert_query->execute([':album_id' =>$album_id, ':title' =>$title, ':price'=>$price, ':duration'=>$duration, ':short_url'=>$short_track_path, ':long_url'=>$track_path, ':image'=>$cover_path]);            
+            $insert_query = $pdo->prepare("INSERT INTO  trackstbl ( `album_id`, `title`, `price`, `song_by`, `duration`, `short_url`, `long_url`, `image`) VALUES (:album_id, :title, :price, :song_by, :duration, :description, :lyrics, :short_url, :long_url, :image)");
+            $insert_query->execute([':album_id' =>$album_id, ':title' =>$title, ':price'=>$price, ':song_by'=>$songby, ':duration'=>$duration, ':description'=>$description, ':lyrics'=>$lyrics, ':short_url'=>$short_track_path, ':long_url'=>$track_path, ':image'=>$cover_path]);            
             $success = "Uploaded successfully.";
         } else {
             $errors[].= "Problem in uploading single.";
@@ -103,20 +109,25 @@ if (isset($_GET['edit'])) {
 	$track_query->execute([':track_id'=>$track_id]);
 	$track_details = $track_query->fetch(PDO::FETCH_ASSOC);
 
-	//edit singles
+	//edit tracks
 	if (isset($_POST['edit'])) {
 		# code...
 	    $artcover = $_FILES['artcover']['name'];
 	    $title = ((isset($_POST['title']) && $_POST['title'] != '')?sanitize($_POST['title']):'');
 	    $title = str_replace('&#039;',"",$title);
 	    $price = ((isset($_POST['price']) && $_POST['price'] != '')?sanitize($_POST['price']):'');
+	    $songby = ((isset($_POST['songby']) && $_POST['songby'] != '')?sanitize($_POST['songby']):'');
 	    $duration = ((isset($_POST['duration']) && $_POST['duration'] != '')?sanitize($_POST['duration']):'');
+	    $description = ((isset($_POST['description']) && $_POST['description'] != '')?$_POST['description']:'');
+	    $lyrics = ((isset($_POST['lyrics']) && $_POST['lyrics'] != '')?$_POST['lyrics']:''); 	    
 	    $track = $_FILES['track']['name'];
 
 	    // account verification
 	    if (!$acct_type == 'Paid Account') {
 	    	# code...
 	    	$price = 0;
+			$description ='No Details avaialable.';			
+			$lyrics ='No Details avaialable.';
 	    }	    
 	    //get cover extension
 	    $cover_piece = explode('.', $artcover);
@@ -140,7 +151,10 @@ if (isset($_GET['edit'])) {
 	    $artcover_extension = pathinfo($_FILES["artcover"]["name"], PATHINFO_EXTENSION);    
 	    $track_extension = pathinfo($_FILES["track"]["name"], PATHINFO_EXTENSION);    
 	  
-
+	    if (empty($artcover) || empty($title) || empty($duration) || empty($track) || empty($songby) || empty($description) || empty($lyrics)) {
+	      # code...
+	      $errors[].= "Found empty fields!.";
+	    }
 		// set track path
 		$timestamp = date('m j Y g-i');
 	    $track_target = "../music/".$track_name.$timestamp.'.'.$track_ext;
@@ -149,46 +163,42 @@ if (isset($_GET['edit'])) {
 	    $cover_target = "../images/art/" .$cover_name.$timestamp.'.'.$cover_ext;
 	    $cover_path = "images/art/" .$cover_name.$timestamp.'.'.$cover_ext;
 
-
-	    if (isset($title) && !empty($title)) {
-	      # code...
-	      $stmt =$pdo->prepare("UPDATE `trackstbl` SET `title`=:title WHERE id =:edit_id");
-	      $stmt->execute([':title'=>$title, ':edit_id'=>$track_id]);
-	      $success ='Updated successfully.';
-	      header('refresh:2; url = manage_tracks.php?edit='.$track_id);
+ 
+	  // Validate file input to check if is with valid extension
+	    if (!in_array($artcover_extension, $allowed_image_extension)) {
+	        $errors[].= "Only jpg and jpeg are allowed.";
 	    }
-	    if (isset($price) && !empty($price) && $price <= 200) {
-	      # code...
-	      $stmt =$pdo->prepare("UPDATE `trackstbl` SET `price`=:price WHERE id =:edit_id");
-	      $stmt->execute([':price'=>$price, ':edit_id'=>$track_id]);
-	      $success =' Updated successfully.';
-	      header('refresh:2; url = manage_tracks.php?edit='.$track_id);
-	    }   
-	    if (isset($duration) && !empty($duration)) {
-	      # code...
-	      $stmt =$pdo->prepare("UPDATE `trackstbl` SET `duration`=:duration WHERE id =:edit_id");
-	      $stmt->execute([':duration'=>$duration, ':edit_id'=>$track_id]);
-	      $success = 'Updated successfully.';
-	      header('refresh:2; url = manage_tracks.php?edit='.$track_id);
-	    }     
-	    if (isset($track) && !empty($track)) {
-		      # code...
-	    	$errors = array();
-		    $unlink_long = '../'.$track_details['long_url'];
-		    $unlink_short = '../'.$track_details['short_url'];
-			@unlink($unlink_long);
-			@unlink($unlink_short);
-		  // Validate file input to check if is with valid extension
-		    if (!in_array($track_extension, $allowed_track_extension)) {
-		        $errors[].= "Only mp3 and 0gg are allowed.";
-		    }		
-		    // Validate image file size
-		    if (($_FILES["track"]["size"] > 20971520)) {
-		        $errors[].= "track size exceeds 20MB";
-		    }    	
+	  // Validate file input to check if is with valid extension
+	    if (!in_array($track_extension, $allowed_track_extension)) {
+	        $errors[].= "Only mp3 and 0gg are allowed.";
+	    }
+	    // Validate image file size
+	    if (($_FILES["artcover"]["size"] > 307200)) {
+	        $errors[].= "Image size exceeds 300Kb";
+	    }    
+	    // Validate image file size
+	    if (($_FILES["track"]["size"] > 20971520)) {
+	        $errors[].= "track size exceeds 20MB";
+	    }
+  
+	    if(empty($errors)) {
+	    	// set track path
+	    	$timestamp = date('m j Y g-i');
+	        $track_target = "../music/".$track_name.$timestamp.'.'.$track_ext;
+	        $track_path = "music/".$track_name.$timestamp.'.'.$track_ext;
+	        // set artcover path
+	        $cover_target = "../images/art/" .$cover_name.$timestamp.'.'.$cover_ext;
+	        $cover_path = "images/art/" .$cover_name.$timestamp.'.'.$cover_ext;
+	        if (move_uploaded_file($_FILES["track"]["tmp_name"], $track_target)  && move_uploaded_file($_FILES["artcover"]["tmp_name"], $cover_target)) {
+	        	// delete image
+	        	$unlink_image = '../'.$track_details['image'];
+	        	// delete music
+	        	$unlink_short = '../'.$track_details['short_url'];
+	        	$unlink_long = '../'.$track_details['long_url'];
+	        	@unlink($unlink_image);
+	        	@unlink($unlink_short);
+	        	@unlink($unlink_long);
 
-			 //update track
-	        if (move_uploaded_file($_FILES["track"]["tmp_name"], $track_target) && empty($errors)) {
 			//Extract 30 seconds starting after 10 seconds.
 				$path = $track_target;
 				$mp3 = new PHPMP3($path);
@@ -197,40 +207,14 @@ if (isset($_GET['edit'])) {
 				//short-track path
 				$short_track_path = 'music/short_'.$track_name.$timestamp.'.'.$track_ext;  
 				      	
-		      $stmt =$pdo->prepare("UPDATE `trackstbl` SET `short_url`=:short_url,`long_url`=:long_url WHERE id =:edit_id");
-		      $stmt->execute([':short_url'=>$short_track_path, ':long_url'=>$track_path, ':edit_id'=>$track_id]);
-		      $success='Updated successfully.';
-		      header('refresh:2; url = manage_singles.php?edit='.$track_id);
+	            $insert_query = $pdo->prepare(" UPDATE `trackstbl` SET `title`=:title, `price`=:price, `song_by`=:song_by, `duration`=:duration, `description`=:description, `lyrics`=:lyrics, `short_url`=:short_url, `long_url`=:long_url, `image`=:image WHERE `id` =:track_id");
+	            $insert_query->execute([':title' =>$title, ':price'=>$price, ':song_by'=>$songby, ':duration'=>$duration, ':description'=>$description, ':lyrics'=>$lyrics, ':short_url'=>$short_track_path, ':long_url'=>$track_path, ':image'=>$cover_path, ':track_id'=>$track_id]);            
+	            $success = "Uploaded successfully.";
+	            header('refresh:2; url = manage_tracks.php?edit='.$track_id);
 	        } else {
-	            $errors[].= "Track not updated.";
+	            $errors[].= "Problem in uploading single.";
 	        }
-	    }  
-	    // update art cover
-	    if (isset($artcover) && !empty($artcover)) {
-		      # code...
-	    	$errors = array();
-		    $unlink_image = '../'.$track['image'];
-			@unlink($unlink_image);
-		  	// Validate file input to check if is with valid extension
-		    if (!in_array($artcover_extension, $allowed_image_extension)) {
-		        $errors[].= "Only jpg and jpeg are allowed.";
-		    }
-		    // Validate image file size
-		    if (($_FILES["artcover"]["size"] > 307200)) {
-		        $errors[].= "Image size exceeds 300Kb";
-		    }  			
-
-			 // move_uploaded_file($_FILES["artcover"]["tmp_name"], $cover_target)
-	        if (move_uploaded_file($_FILES["artcover"]["tmp_name"], $cover_target) && empty($errors)) {
-			//update cover				      	
-		      $stmt =$pdo->prepare("UPDATE `trackstbl` SET `image`=:image WHERE id =:edit_id");
-		      $stmt->execute([':image'=>$cover_path, ':edit_id'=>$track_id]);
-		      $success= 'Updated successfully.';
-		      header('refresh:2; url = manage_tracks.php?edit='.$track_id);
-	        } else {
-	            $errors[].= "Artcover not updated";
-	        }
-	    }  	           
+	    } 	           
 	}
 
 }
@@ -274,12 +258,12 @@ if (isset($_GET['delete'])) {
 			<h1 class="h2 font-weight-semibold mb-4"><?=(isset($_GET['edit']))?'Edit':'Add'?> Tracks</h1>
 		<main class="container-fluid " role="main">
 			<div class="row">
-				<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center bg-white mnh-100vh">
+				<div class="col-lg-12 bg-white mnh-100vh" style="padding: 15px;">
 						<a class="u-login-form py-3 text-center" href="index.html">
 							<!-- <img class="img-fluid" src="./assets/img/logo.png" width="80" alt="Cross logo">						 -->
 						</a>					
-					<div class="u-login-form">
-						<form class="mb-3" method="POST" action="manage_tracks.php<?=(isset($_GET['edit']))?'?edit='.$track_id:''?>" enctype="multipart/form-data">
+					<div>
+						<form class="mb-3" method="POST" action="manage_tracks.php<?=(isset($_GET['edit']))?'?edit='.$track_id:'?album_id='.$album_id?>" enctype="multipart/form-data">
 							<div class="mb-3">
 								<h1 class="h2"><?=(isset($_GET['edit']))?'Edit':'Upload'?> your tracks</h1>
 								<p class="small">All track price are best sold between &#8358;100 and &#8358;200 to encourage patronage.</p>
@@ -302,50 +286,76 @@ if (isset($_GET['delete'])) {
 		                              </button>
 		                            </div>
 		                        <?php } ?>
-		                      </div> 							
-							<label for="email">Track Artcover</label>
-							<span class="small text-muted" style="font-style: italic;font-weight: bold;"><?=(isset($_GET['edit']))? $track_details['image']:''?></span>
-				            <div class="file-loading form-group mb-4">				            	
-				                <input id="file-2" type="file" class="file" data-show-upload="false" data-theme="fas" accept="image/*" name="artcover" value="<?=(isset($_GET['edit']))? $track_details['image']:''?>">
+		                      </div> 		
+		                    <div class="row">
+		                    	<div class="col-md-4">					
+									<label for="email">Track Artcover</label>
+									<span class="small text-muted" style="font-style: italic;font-weight: bold;"><?=(isset($_GET['edit']))? $track_details['image']:''?></span>
+						            <div class="file-loading form-group mb-4">				            	
+						                <input id="file-2" type="file" class="file" data-show-upload="false" data-theme="fas" accept="image/*" name="artcover" value="<?=(isset($_GET['edit']))? $track_details['image']:''?>">
+						            </div>
+				            	</div>
+				            	<div class="col-md-8">
+									<div class="form-group mb-4">
+										<label for="email">Title</label>
+										<input id="email" class="form-control" name="title" type="text" placeholder="Title" value="<?=(isset($_GET['edit']))? $track_details['title']:''?>">
+									</div>							
+									<?php if($acct_type == 'Paid Account'){?>
+									<div class="form-group mb-4">
+										<label for="password">Price</label>
+										<input id="password" class="form-control" name="price" type="text" placeholder="Price e.g &#8358;100" value="<?=(isset($_GET['edit']))? $track_details['price']:''?>">
+									</div>
+									<?php } ?>
+									<div class="form-group mb-4">
+										<label for="email">Song By</label>
+										<input id="email" class="form-control" name="songby" type="text" placeholder="Enter song by e.g Crossmusic records" value="<?=(isset($_GET['edit']))? $track_details['song_by']:''?>">
+									</div>																					
+									<div class="form-group mb-4">
+										<label for="email">Duration</label>
+										<input id="email" class="form-control" name="duration" type="text" placeholder="Duration e.g 02:45" value="<?=(isset($_GET['edit']))? $track_details['duration']:''?>">
+									</div>
+									<?php if($acct_type == 'Paid Account'){?>
+									<div class="row">					                  	
+									  <div class="form-group col-md-12">
+									  	<label for="email">Single Description</label>
+									  	<span class="small">Your first journey in telling the World about your single</span>
+									    <textarea id="myTextarea" class="form-control myTextarea" rows="3" name="description">
+									    <?=(isset($_GET['edit']))? $track_details['description']:''?>
+									    </textarea> 
+									  </div>                                                        
+									</div>	
+									<div class="row">					                  	
+									  <div class="form-group col-md-12">
+									  	<label for="email">Single Lyrics</label>
+									  	<span class="small">show the world your amazing single lytics</span>
+									    <textarea id="myTextarea" class="form-control myTextarea" rows="3" name="lyrics">
+									    <?=(isset($_GET['edit']))? $track_details['lyrics']:''?>
+									    </textarea> 
+									  </div>                                                        
+									</div>	
+									<?php } ?>									
+									<div class="form-group mb-4">
+										<label for="email">Track</label>
+										<span class="small text-muted" style="font-style: italic;font-weight: bold;"><?=(isset($_GET['edit']))? $track_details['long_url']:''?></span>
+				                        <div class="file-loading">                          
+				                          <input class="file" name="track" id="file-1" type="file" data-show-upload="false" data-theme="fas" data-show-preview="false" accept="audio/*" onchange="uploadFile()" value="<?=(isset($_GET['edit']))? $track_details['track']:''?>">
+				                          <!-- <label tabindex="0" for="my-audio" class="input-audio-trigger" style="margin-bottom: 0px;">Select Audio...</label>                     -->
+				                        </div>
+				                        <progress id="progressBar" value="0" max="100" style="width:100%;"></progress>
+				                        <h3 id="status"></h3>
+				                        <p id="loaded_n_total"></p>
+				                        <br>                       
+		                        	<p class="audio-return"></p>  
+									</div>														
+									<button class="btn custom-btn btn-block" type="submit" name="<?=(isset($_GET['edit']))?'edit':'add'?>"><?=(isset($_GET['edit']))?'Edit':'Add'?> Track</button>				            		
+				            	</div>
 				            </div>												
-							<div class="form-group mb-4">
-								<label for="email">Title</label>
-								<input id="email" class="form-control" name="title" type="text" placeholder="Title" value="<?=(isset($_GET['edit']))? $track_details['title']:''?>">
-							</div>
-							<?php if($acct_type == 'Paid Account'){?>
-							<div class="form-group mb-4">
-								<label for="password">Price</label>
-								<input id="password" class="form-control" name="price" type="text" placeholder="Price e.g &#8358;100" value="<?=(isset($_GET['edit']))? $track_details['price']:''?>">
-							</div>
-							<?php } ?>														
-							<div class="form-group mb-4">
-								<label for="email">Duration</label>
-								<input id="email" class="form-control" name="duration" type="text" placeholder="Duration e.g 02:45" value="<?=(isset($_GET['edit']))? $track_details['duration']:''?>">
-							</div>
-							<div class="form-group mb-4">
-								<label for="email">Track</label>
-								<span class="small text-muted" style="font-style: italic;font-weight: bold;"><?=(isset($_GET['edit']))? $track_details['long_url']:''?></span>
-		                        <div class="file-loading">                          
-		                          <input class="file" name="track" id="file-1" type="file" data-show-upload="false" data-theme="fas" data-show-preview="false" accept="audio/*" onchange="uploadFile()" value="<?=(isset($_GET['edit']))? $track_details['track']:''?>">
-		                          <!-- <label tabindex="0" for="my-audio" class="input-audio-trigger" style="margin-bottom: 0px;">Select Audio...</label>                     -->
-		                        </div>
-		                        <progress id="progressBar" value="0" max="100" style="width:100%;"></progress>
-		                        <h3 id="status"></h3>
-		                        <p id="loaded_n_total"></p>
-		                        <br>                       
-                        	<p class="audio-return"></p>  
-							</div>														
-							<button class="btn custom-btn btn-block" type="submit" name="<?=(isset($_GET['edit']))?'edit':'add'?>"><?=(isset($_GET['edit']))?'Edit':'Add'?> Track</button>
 						</form>
 					</div>
 
 					<div class="u-login-form text-muted py-3 mt-auto">
 						<!-- <small><i class="far fa-question-circle mr-1"></i> If you are not able to make request, please <a href="#" style="color: #333;">contact us</a>.</small> -->
 					</div>
-				</div>
-
-				<div class="col-lg-6 d-none d-lg-flex flex-column align-items-center justify-content-center bg-light">
-					<img class="position-relative u-z-index-3 " src="./assets/img/cash-out.png" alt="Image description" style="width: 90%;">
 				</div>
 			</div>
 		</main>

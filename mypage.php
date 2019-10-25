@@ -154,7 +154,40 @@ if (isset($_GET['singles_download'])) {
 		</div>
 	<?php endwhile; ?>                               
 	</div>
-<?php }?>	            
+<?php }?>
+
+<div class="row">
+<?php if(isset($_GET['login']) && $_GET['login'] == 'true'){ ?>
+	<script type="text/javascript">
+	$( document ).ready(function() {
+	   $('.toast').toast('show');
+	});	
+	</script>
+	<style type="text/css">
+		.toast{
+			background-color: #eee !important;
+			border: none !important;
+			color: #0b2435;
+		}
+		.toast-header{
+			background-color: #ffffff;
+		}
+	</style>	
+	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000" style="position: absolute;top: 10px;right: 10px;z-index: 999999999999999">
+	  <div class="toast-header">
+	    <img src="images/logo.png" width="40" height="" class="rounded mr-2" alt="...">
+	    <strong class="mr-auto">Crossmusic</strong>
+	    <small>...</small>
+	    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="toast-body">
+	    Welcome, your are now logged in.
+	  </div>
+	</div>	
+<?php }  ?>		
+</div>	            
 </div>
 
 

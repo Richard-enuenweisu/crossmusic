@@ -55,9 +55,16 @@ if (isset($_GET['singles_download'])) {
         $insert_query->execute([':track' =>$tr_id]);  	    		
 		}	
 }
+  // search script
 
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "https") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$long_url = urlencode($actual_link);
+$bitly_login = 'o_3imer2s9ir';
+$bitly_apikey = 'R_86d9c6da47eb485bb38e814bc4fe3dd0';
+$bitly_response = json_decode(file_get_contents("http://api.bit.ly/v3/shorten?login={$bitly_login}&apiKey={$bitly_apikey}&longUrl={$long_url}&format=json"));
+$short_url = $bitly_response->data->url;
 
-
+  include str_replace("\\","/",dirname(__FILE__).'/includes/search.php');  
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
@@ -70,20 +77,44 @@ if (isset($_GET['singles_download'])) {
   <div class="row">
 	<div class="music-page-flex">
 	    <div class="col-md-8 pusher-3">
-	        <h1>Grow as a workman</h1>
-	        <p>
-	        Week in, week out, we are totally sold out to seeking the face of God for his seasonal counsel for his church to equip you. We hope that these sermons help you growth. 
-			</p>
-    	    <div id="custom-search-input">
-                <div class="input-group">
-                    <input type="text" class="search-query form-control" placeholder="Search" />
-                    <span class="input-group-btn">
-                        <button type="button" disabled>
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </div>
+	    	<div class="row">
+	    		<div class="col-sm-12 col-md-12">
+				      <h1>Get your heart songs</h1>
+				      <p>
+				      Go head over heels with your next favorite song or artist. Crossmusic has over +2000 tracks for you to browse, listen, buy or download. Use our elastic search to find song or music.
+				      </p>
+			          <div id="custom-search-input">
+			            <form method="POST" action="search-result.php">
+			              <div class="input-group">
+			                <select class="sinput form-control" name="category" style="border-radius:0px;">
+			                  <option>-- Category --</option>
+			                  <option>Albums</option>
+			                  <option>Tracks</option>
+			                  <option>Singles</option>
+			                </select>
+			                <select class="sinput form-control" name="type" style="border-radius:0px;">
+			                  <option>-- Type --</option>
+			                  <option>Free</option>
+			                  <option>Paid</option>
+			                </select>                
+			                <input type="text" class="sinput form-control" name="title" placeholder="Title">
+			                <!-- <div class="input-group-append"> -->
+			                  <button type="submit" class="form-control" name="search" style="color: #fff;background-color: #007bff;border-color: #007bff;border-radius:0px;width: 10%;padding: 10px 0px 7px 0px;"><i class="fa fa-search"></i></button>
+			                <!-- </div>                              -->
+			              </div> 
+			              <?php if(isset($errors)){?> 
+			              <!-- alert -->
+			              <div class="alert text-danger alert-dismissible fade show" role="alert">
+			                <?=$errors?>
+			                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                  <span aria-hidden="true">&times;</span>
+			                </button>
+			              </div>                 
+			              <?php } ?>                          
+			            </form>           
+			          </div>	    			
+	    		</div>
+	    	</div>
 			<div class="row music-media pusher">
 				<div class="col-sm-12 col-md-12">
 				    <div class="row music-view-details">
@@ -98,8 +129,10 @@ if (isset($_GET['singles_download'])) {
 							<?php endif ?>	                  	                  
 					  </div>
 					  <div class="col-md-8">
+						<p class="push share-tiny-link">Share: <span id="copy"><?=$short_url?> </span> 
+							<button class="btn btn-sm float-right text-white" onclick="copyToClipboard('#copy')"><i class="fa fa-copy"></i></button>
+						</p>					  	
 					  <?php while($result = $stmt2->fetch(PDO::FETCH_ASSOC)) : 
-						$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 						//count dowload script
 						if (isset($category)) {
 							# code...
@@ -122,7 +155,7 @@ if (isset($_GET['singles_download'])) {
 							    <script>
 								$("#share").jsSocials({
 									shareIn: "popup",									
-								    url: "<?=$actual_link?>",
+								    url: "<?=$short_url?>",
 								    text: "<?=$prev_result['title']?> - Get the song! | Get free unlimited songs uploads. Crossmusic proffer a much more simpler way to sell your gospel music and get you going.",
 								    showLabel: true,
 								    showCount: "inside",

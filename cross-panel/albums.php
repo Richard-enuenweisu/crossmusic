@@ -17,15 +17,31 @@ if ($acct_type == 'Free Account') {
 	$album_query = $pdo->query("SELECT * FROM albumstbl WHERE price > 0 AND account_id = $artist_id ORDER BY id DESC");
 }
 
-
-if (isset($_GET['delete'])) {
+if (isset($_GET['block'])) {
 	# code...
-	$del = intval($_GET['delete']);
- 	$del_query = $pdo->prepare(" DELETE FROM albumstbl WHERE id = :delete_id");
-	$del_query->execute([':delete_id' =>$del]); 
-	$success = "Album Deleted Successfully!  Refreshing in 2 secs.";
+	$block = intval($_GET['block']);
+ 	$del_query = $pdo->prepare("UPDATE albumstbl SET `featured`=:featured WHERE id = :block_id");
+	$del_query->execute([':featured' => 0, ':block_id' =>$block ]); 
+	$success = "Deleted Successfully! Refreshing in 2 secs.";
 	header("refresh:2;url=albums.php");
 }
+if (isset($_GET['unblock'])) {
+	# code...
+	$block = intval($_GET['unblock']);
+ 	$del_query = $pdo->prepare("UPDATE albumstbl SET `featured`=:featured WHERE id = :block_id");
+	$del_query->execute([':featured' => 1, ':block_id' =>$block ]); 
+	$success = "Recycled Successfully! Refreshing in 2 secs.";
+	header("refresh:2;url=albums.php");
+}
+
+// if (isset($_GET['delete'])) {
+// 	# code...
+// 	$del = intval($_GET['delete']);
+//  	$del_query = $pdo->prepare(" DELETE FROM albumstbl WHERE id = :delete_id");
+// 	$del_query->execute([':delete_id' =>$del]); 
+// 	$success = "Album Deleted Successfully!  Refreshing in 2 secs.";
+// 	header("refresh:2;url=albums.php");
+// }
   include str_replace("\\","/",dirname(__FILE__).'/assets/include/header.php');
   include str_replace("\\","/",dirname(__FILE__).'/assets/include/headbar.php');
 ?>
@@ -94,9 +110,12 @@ if (isset($_GET['delete'])) {
 												<a class="badge badge-soft-danger" href="tracks.php?album_id=<?=$album['id']?>">Manage Tracks</a>							
 											</td>
 											<td class="text-center">
-												<a class="link-muted" href="tracks.php?delete=<?=$album['id']?>">
-													<i class="fa fa-trash"></i>
-												</a>											
+											<?php if ($album['featured'] == 1) { ?>
+												<a class="badge badge-soft-danger" href="albums.php?block=<?=$album['id']?>">Delete Album</a>	
+											<?php }else { ?>
+												<a class="badge badge-soft-info" href="albums.php?unblock=<?=$album['id']?>">Recycle Album</a>
+											<?php } ?>
+														
 											</td>
 										</tr>
 										<?php endwhile ?>										

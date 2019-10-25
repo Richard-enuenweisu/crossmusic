@@ -29,7 +29,7 @@
 					<h6><i class="fa fa-mobile-phone fa-2x"></i> +2349015952595</h6>	
 					<h6><i class="fa fa-mobile-phone fa-2x"></i> +2348060771255</h6> 
 					<h4>Make a complain via whatsApp</h4>		
-					<a href="https://wa.me/2348060771255"><i class="fa fa-whatsapp fa-4x"></i></a>	 				 
+					<a onclick="window.open(this.href,'_blank');return false;" href="https://wa.me/2348060771255" target="blank"><i class="fa fa-whatsapp fa-4x"></i></a>	 				 
 				  <br>
 				<img class="img-fluid" src="images/contact.png">				
 			</div>		

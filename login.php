@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
     $salted = 'Z%yHrcR8QDhF99CC^ZZ9qe!+k'.$password.'f+KA??dj7$S$HL4guq$yJ5_3b';
     $hashed = hash('sha224', $salted);
 
-    if (isset($_POST['userType']) && ($_POST['userType'] !== "")) {
+    if (isset($_POST['userType']) && ($_POST['userType'] != "")) {
     $stmt = $pdo->prepare('SELECT * FROM artisttbl WHERE email = ? AND password = ?');
     $stmt->execute([$email , $hashed]);
     $row = $stmt->rowcount();
@@ -27,6 +27,10 @@ if (isset($_POST['login'])) {
 
     if ($row < 1) {
       $errors[].='users does not exist!'.'<br>';
+    }
+    if ($result['featured'] == 0) {
+      # code...
+      $errors[].='user is blocked!'.'<br>';
     }
     if (empty($errors)) {
       $u_id = intval($result['account_id']);
@@ -43,6 +47,10 @@ if (isset($_POST['login'])) {
     if ($row < 1) {
       $errors[].='users does not exist!'.'<br>';
     }
+    if ($result['featured'] == 0) {
+      # code...
+      $errors[].='user is blocked!'.'<br>';
+    }    
     if (empty($errors)) {
       $u_id = intval($result['id']);
       $success = 'Logged in Successfully! '.'<br>';
@@ -68,14 +76,16 @@ if (isset($_POST['login'])) {
 		<div class="col-md-6 mylogin-holder" style="padding: 0px;">
 			<form class="mylogin" method="POST" action="login.php">				
 				<h4>Please Login</h4>
-		          <div class="row">
-		                <div class="col-12">
-		                  	<?=(isset($success)) ? $success:'' ?>
-		                </div>
-		                <div class="col-12">
-		                  	<?=(isset($errors)) ? display_errors($errors):'Please Fill out all fields.' ?>
-		                </div>
-		          </div> 				
+        <div class="row">
+          <div class="col-12">
+            <div class="<?=(isset($success) && !empty($success)) ?'custom-sucess-message':'' ?>">
+              <?=(isset($success)) ? '<p>'.$success:'</p>' ?>
+            </div>            
+          </div>
+          <div class="col-12">
+              <?=(isset($errors))? display_errors($errors):'<p class="share-tiny-link">Please Fill out all fields.</p>' ?>
+          </div>
+        </div> 				
 				<div class="form-group push">
 				    <label for="inputAddress">Email</label>
 				    <input type="text" class="form-control custom-inputs form-pill" id="inputAddress" name="email" placeholder="Email" value="<?=(isset($email)) ? $email:'' ?>">
@@ -93,7 +103,7 @@ if (isset($_POST['login'])) {
 	           <br>
 	           <br>			 											  	  
 			  <button type="submit" class="btn btn-custom form-pill" name="login">Please Login</button>	
-        <a class="link-muted small float-right" href="#">Forgot Password?</a>
+        <a class="link-muted small float-right" href="forget-password">Forgot Password?</a>
 			</form>
 			<img class="img-fluid" src="images/login-img.png">		
 		</div>

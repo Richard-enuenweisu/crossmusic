@@ -2,6 +2,13 @@
 require_once  str_replace("\\","/",dirname(__FILE__). '/core/init.php');
 require_once  str_replace("\\","/",dirname(__FILE__). '/helpers/helpers.php');
 
+$stmt = $pdo->prepare('SELECT * FROM pricingtbl WHERE id = :id ');
+$stmt->execute([':id'=>1]);
+$acc_price = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+$amount = $acc_price['price'];
+// $amount = number_format($amount);
+
 if (!isset($_GET['ref'])) {
 	header('Location: account.php');
 }
@@ -33,7 +40,6 @@ else{
 			$stmt = $pdo->prepare('SELECT * FROM artisttbl WHERE email = ? ');
 			$stmt->execute([$email]);
 			$row = $stmt->rowcount();
-			echo 'this is the value'.$row;
 			// $result =$stmt->fetch(PDO::FETCH_ASSOC);
 			if (empty($row) && $acc_type == 'Free Account') {
 				//insert free account into DB
@@ -46,64 +52,52 @@ else{
             $insert_query2->execute([':acc_id' =>$acc_id, ':email' =>$email, ':password'=>$password]); 
             //automatic Artist login
   			artistLogin($acc_id);
-  			}
+  			}else{
+        //paystack standard
+        $curl = curl_init();
+        // $email = "your@email.com";
+        // $amount = 30000;  //the amount in kobo. This value is actually NGN 300
+        // url to go to after payment
+        $callback_url = 'http://localhost/cross/complete.php';  
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.paystack.co/transaction/initialize",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode([
+            'amount'=>$amount * 100,
+            'email'=>$email,
+            'callback_url' => $callback_url
+          ]),
+          CURLOPT_HTTPHEADER => [
+            "authorization: Bearer sk_test_5f94dfdac4c43b80d16f4cb0b844123d1cfed4af", //replace this with your own test key
+            "content-type: application/json",
+            "cache-control: no-cache"
+          ],
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        if($err){
+          // there was an error contacting the Paystack API
+          die('Curl returned error: ' . $err);
+        }
+        $tranx = json_decode($response, true);
+
+        if(!$tranx->status){
+          // there was an error from the API
+          print_r('API returned error: ' . $tranx['message']);
+        }
+        // comment out this line if you want to redirect the user to the payment page
+        print_r($tranx);
+        // redirect to page so User can pay
+        // uncomment this line to allow the user redirect to the payment page
+        header('Location: ' . $tranx['data']['authorization_url']);           
+        }
 	    } 
 }
 if (isset($_POST['paynow'])) {
   # code...
-    //paystack standard
-    $curl = curl_init();
-    // $email = "your@email.com";
-    // $amount = 30000;  //the amount in kobo. This value is actually NGN 300
-    // url to go to after payment
-    $callback_url = 'callback.php';  
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.paystack.co/transaction/initialize",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => json_encode([
-        'amount'=>$amount * 100,
-        'email'=>$email,
-        'callback_url' => $callback_url
-      ]),
-      CURLOPT_HTTPHEADER => [
-        "authorization: Bearer sk_test_5f94dfdac4c43b80d16f4cb0b844123d1cfed4af", //replace this with your own test key
-        "content-type: application/json",
-        "cache-control: no-cache"
-      ],
-    ));
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-    if($err){
-      // there was an error contacting the Paystack API
-      die('Curl returned error: ' . $err);
-    }
-    $tranx = json_decode($response, true);
 
-    if(!$tranx->status){
-      // there was an error from the API
-      print_r('API returned error: ' . $tranx['message']);
-    }
-    // comment out this line if you want to redirect the user to the payment page
-    print_r($tranx);
-    // redirect to page so User can pay
-    // uncomment this line to allow the user redirect to the payment page
-    header('Location: ' . $tranx['data']['authorization_url'])  
 }
-	    // if (isset($_COOKIE['cookieLink'])) {
-	    //     foreach ($_COOKIE['cookieLink'] as $name => $value) {
-	    //         $name = $name;
-	    //         $value = $value;
-	    //         echo "$name : $value <br />\n";
-	    //     }
-	    // }
-	    // if (isset($_COOKIE['cookieData'])) {
-	    //     foreach ($_COOKIE['cookieData'] as $name => $value) {
-	    //         $name = $name;
-	    //         $value = $value;
-	    //         echo "$name : $value <br />\n";
-	    //     }
-	    // } 	    
 
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
@@ -151,7 +145,7 @@ if (isset($_POST['paynow'])) {
             <h2>Email Verified Successfully!</h2>
 			<p>Thank you for verifying your email. Welcome to the number gospel music platform which exclusively offers a free and paid options for every artiste in Naija.
             </p>      
-            <?php if(isset($acc_type) && $acc_type ='Free Account'){ ?>      
+            <?php if(isset($acc_type) && $acc_type =='Free Account'){ ?>      
             <!-- <a class="btn btn-custom form-pill" href="http://localhost/cross/cross-panel/login.php">Please Login</a> -->
             <h4>You will be logged in automatically.</h4>
         	<?php }else {?>
@@ -169,7 +163,7 @@ if (isset($_POST['paynow'])) {
 </div>
 
 <?php
-  include str_replace("\\","/",dirname(__FILE__).'/includes/paystack.php');
+  // include str_replace("\\","/",dirname(__FILE__).'/includes/paystack.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/foot.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/footscripts.php');
 ?>

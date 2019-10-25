@@ -9,7 +9,63 @@ if (!isset($_SESSION['ARTIST_ID'])) {
 	// var_dump($artist_id);
 	$stmt = $pdo->query("SELECT * FROM banktbl WHERE account_id = $artist_id");
 	$row = $stmt->rowcount();
-	$acc_result = $stmt->fetch(PDO::FETCH_ASSOC);		
+	$acc_details = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+//list bank code
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.paystack.co/bank",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => [
+    "authorization: Bearer sk_test_5f94dfdac4c43b80d16f4cb0b844123d1cfed4af", //replace this with your own test key
+    "content-type: application/json",
+    "cache-control: no-cache"
+  ],
+));
+$response = curl_exec($curl);
+$err = curl_error($curl);
+if($err){
+	die ("page error:".$err);
+}else{
+	$response = json_decode($response, true);
+}
+if (isset($_POST['verify'])) {
+	# code...
+	$bname = ((isset($_POST['bname']))?sanitize($_POST['bname']): '');
+	$accNum = ((isset($_POST['accNum']))?sanitize($_POST['accNum']): '');
+	$split = explode('-',$bname);
+	$bank_name = $split[0];
+	$bank_code = $split[1];
+	// $bank_name = substr_replace($bname,$bank_code,-4);	
+	//resolve bank
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => 'https://api.paystack.co/bank/resolve?account_number='.$accNum.'&bank_code='.$bank_code,
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_CUSTOMREQUEST => "GET",
+	  CURLOPT_HTTPHEADER => [
+	    "authorization: Bearer sk_test_5f94dfdac4c43b80d16f4cb0b844123d1cfed4af", //replace this with your own test key
+	    "content-type: application/json",
+	    "cache-control: no-cache"
+	  ],
+	));
+	$curl_result = curl_exec($curl);
+	$err = curl_error($curl);
+	if($err){
+		die ("page error:".$err);
+	}else{
+		$curl_result = json_decode($curl_result, true);
+	}
+	if ($curl_result['status'] == 'true') {
+		# code...
+		$account_name = $curl_result['data']['account_name'];
+	}else{
+		$account_name = 'Not resolved, continue if you are certain';
+	}
+
 }
 //add bank details
 if (isset($_POST['add'])) {
@@ -77,10 +133,10 @@ if (isset($_POST['edit'])) {
 									<h2 class="push">Account Details</h2>
 									<div>
 										<span for="email">Bank Name</span>
-										<p class="pro-s"><?=$acc_result['bank_name']?></p>
+										<p class="pro-s"><?=$acc_details['bank_name']?></p>
 
 										<span for="email">Account Number</span>
-										<p class="pro-s"><?=$acc_result['bank_account']?></p>												
+										<p class="pro-s"><?=$acc_details['bank_account']?></p>												
 									</div>
 									<?php } ?>									
 								</div>
@@ -107,15 +163,29 @@ if (isset($_POST['edit'])) {
 					                            </div>
 					                        <?php } ?>
 					                      </div> 										
-										<div class="form-group mb-4 push">
-											<label for="email">Bank Name</label>
-											<input id="email" class="form-control form-pill" name="bname" type="text" placeholder="Bank Name" value="<?=((isset($bname))?$bname:'');?>">
-										</div>	
+										<div class="form-group mb-4">
+											<label for="password">Bank Name</label>
+											<select class="form-control" name="bname">
+												<option><?=((isset($bank_name))?$bank_name:'--Select Bank--');?></option>					
+												<?php 
+												 foreach($response as $details => $data)
+												    	{
+												    		foreach($data as $info){?>
+																<option><?=$info['name']?>-<?=$info['code']?></option>
+												<?php } } ?>
+											</select>
+										</div>											
 										<div class="form-group mb-4">
 											<label for="email">Account number</label>
-											<input id="email" class="form-control form-pill" name="accNum" type="text" placeholder="Account number" value="<?=((isset($accNum))?$accNum:'');?>">
-										</div>																			
-										<button class="btn custom-btn form-pill" type="submit" name="add">Add Details</button>			
+											<input id="email" class="form-control " name="accNum" type="text" placeholder="Account number" value="<?=((isset($accNum))?$accNum:'');?>">	
+										</div>
+										<button class="btn btn-danger" type="submit" name="verify">Verify Account Number</button>				
+										<hr>
+										<div class="form-group mb-4 push">
+											<label for="email">Account Name</label>
+											<input id="email" class="form-control " disabled name="accname" type="text" placeholder="Account Name" value="<?=((isset($account_name))?$account_name:'');?>">
+										</div>																							
+										<button class="btn custom-btn" type="submit" name="add">Add Details</button>			
 									</form>
 								</div>									
 								<?php } else{ ?>
@@ -141,15 +211,29 @@ if (isset($_POST['edit'])) {
 					                            </div>
 					                        <?php } ?>
 					                      </div> 
-										<div class="form-group mb-4 push">
-											<label for="email">Bank Name</label>
-											<input id="email" class="form-control form-pill" name="bname" type="text" placeholder="Bank Name" value="<?=((isset($bname))?$bname:'');?>">
-										</div>	
+										<div class="form-group mb-4">
+											<label for="password">Bank Name</label>
+											<select class="form-control" name="bname">
+												<option><?=((isset($bank_name))?$bank_name:'--Select Bank--');?></option>					
+												<?php 
+												 foreach($response as $details => $data)
+												    	{
+												    		foreach($data as $info){?>
+																<option><?=$info['name']?>-<?=$info['code']?></option>
+												<?php } } ?>
+											</select>
+										</div>											
 										<div class="form-group mb-4">
 											<label for="email">Account number</label>
-											<input id="email" class="form-control form-pill" name="accNum" type="text" placeholder="Account number" value="<?=((isset($accNum))?$accNum:'');?>">
-										</div>																			
-										<button class="btn custom-btn form-pill" type="submit" name="edit">Edit Details</button>			
+											<input id="email" class="form-control " name="accNum" type="text" placeholder="Account number" value="<?=((isset($accNum))?$accNum:'');?>">	
+										</div>
+										<button class="btn btn-danger" type="submit" name="verify">Verify Account Number</button>				
+										<hr>
+										<div class="form-group mb-4 push">
+											<label for="email">Account Name</label>
+											<input id="email" class="form-control " disabled name="accname" type="text" placeholder="Account Name" value="<?=((isset($account_name))?$account_name:'');?>">
+										</div>	
+										<button class="btn custom-btn" type="submit" name="edit">Edit Details</button>			
 									</form>
 								</div>
 								<?php } ?>								
@@ -158,7 +242,14 @@ if (isset($_POST['edit'])) {
 					</div>
 				</div>
 			</div>
-
+<!-- <script>
+    $(document).ready(function(){
+    $('#myDropDown').change(function(){
+        var inputValue = $(this).val();
+        $("#codes").val(inputValue);
+    });
+});
+</script> -->
 <?php
   include str_replace("\\","/",dirname(__FILE__).'/assets/include/foot.php');
 ?>

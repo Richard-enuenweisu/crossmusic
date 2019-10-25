@@ -86,7 +86,7 @@ if (isset($_GET['signup'])) {
                                     <table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:640px" width="100%">
                                         <tbody><tr>
                                             <td align="center" valign="top" style="padding:40px">
-                                                <a href=" style="text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.mail.com/&amp;source=gmail&amp;ust=1562686520120000&amp;usg=AFQjCNGGDFeD51MH09C3mcNqZD6XyP0pdw"><img src="https://lh3.googleusercontent.com/-HV1s_FW_xZY/XSTFE40_BLI/AAAAAAAAABE/L5qBVwAuPXsPozlicJMmbCW70ZOCXmAEACEwYBhgL/w140-h140-p/logo.png" width="120" style="border:0;color:#ffffff;
+                                                <a href=" style="text-decoration:none" target="_blank" data-saferedirecturl="https://mycrossmusic.com/"><img src="https://lh3.googleusercontent.com/-HV1s_FW_xZY/XSTFE40_BLI/AAAAAAAAABE/L5qBVwAuPXsPozlicJMmbCW70ZOCXmAEACEwYBhgL/w140-h140-p/logo.png" width="120" style="border:0;color:#ffffff;
                                                 font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;height:auto;letter-spacing:-1px;padding:0;margin:0;outline:none;text-align:center;text-decoration:none"></a>
                                             </td>
                                         </tr>
@@ -112,7 +112,7 @@ if (isset($_GET['signup'])) {
                                             <td align="center" valign="middle" style="padding-right:40px;padding-bottom:60px;padding-left:40px">
                                                 <table border="0" cellspacing="0" cellpadding="0">
                                                     <tbody><tr>
-                                                        <td align="center" bgcolor="#007C89"><a href="http://localhost/cross/aff-email-verified.php?ref='.$reflink.'" style="border-radius:0;border:1px solid #007c89;color:#ffffff;display:inline-block;font-size:16px;font-weight:400;letter-spacing:.3px;padding:20px;text-decoration:none;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;" target="_blank">Activate Account</a>
+                                                        <td align="center" bgcolor="#007C89"><a href="https://mycrossmusic.com/aff-email-verified.php?ref='.$reflink.'" style="border-radius:0;border:1px solid #007c89;color:#ffffff;display:inline-block;font-size:16px;font-weight:400;letter-spacing:.3px;padding:20px;text-decoration:none;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;" target="_blank">Activate Account</a>
                                                         </td>
                                                     </tr>
                                                 </tbody></table>
@@ -120,13 +120,13 @@ if (isset($_GET['signup'])) {
                                         </tr>
                                         <tr>
                                             <td align="center" valign="top" style="padding-right:40px;padding-bottom:40px;padding-left:40px">
-                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:42px;letter-spacing:normal;margin:0;padding:0;text-align:center">(Just confirming your are you.)</p>
+                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:42px;letter-spacing:normal;margin:0;padding:0;text-align:center">(Just confirming you are you.)</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center" valign="top" style="border-top:2px solid #efeeea;color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding-top:40px;padding-bottom:40px;text-align:center">
-                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding:0 20px;margin:0;text-align:center">© 2019 Crossmusic<sup>®</sup>, All Rights Reserved.<br><a style="color:#6a655f;text-decoration:none">675 Ponce De Leon Ave NE - Suite 5000 - Atlanta, GA 30308 USA</a></p>
-                                                <a href="#/contact/" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank"> &nbsp; | &nbsp; </span><a href="https://mailchimp.com/legal/terms/" style="color:#007c89;font-weight:500;text-decoration:none" class=" target="_blank" >Terms of Use</a><span class="> &nbsp; | &nbsp; </span><a href="https://mailchimp.com/legal/privacy/" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank">Privacy Policy</a>
+                                                <p style="color:#6a655f;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:12px;font-weight:400;line-height:24px;padding:0 20px;margin:0;text-align:center">© 2019 Crossmusic<sup>®</sup>, All Rights Reserved.</p>
+                                                <a href="https://mycrossmusic.com/contact" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank"> &nbsp; | &nbsp; </span><a href="#" style="color:#007c89;font-weight:500;text-decoration:none" class=" target="_blank" >Terms of Use</a><span class="> &nbsp; | &nbsp; </span><a href="#" style="color:#007c89;font-weight:500;text-decoration:none" target="_blank">Privacy Policy</a>
                                             </td>
                                         </tr>
                                     </tbody></table>
@@ -213,7 +213,7 @@ if (isset($_POST['login'])) {
 				          <div class="row">
 						    <div class="col-12">
 						    	<div class="<?=(isset($success) && !empty($success)) ?'custom-sucess-message':'' ?>">
-						    		<?=(isset($success)) ? $success:'' ?>
+						    		<?=(isset($success)) ? '<p class="share-tiny-link">'.$success:'</p>' ?>
 						    	</div>		      	
 						    </div>
 						    <div class="col-12">
@@ -229,8 +229,10 @@ if (isset($_POST['login'])) {
 						    <input type="password" class="form-control custom-inputs form-pill" id="inputAddress" name="password" placeholder="Password" value="<?=(isset($password)) ? $password:'' ?>">
 						</div>	
 			           <br>
-					  <button type="submit" class="btn btn-custom form-pill" name="login">Please Login</button><br><br>
-		        		<a class="link-muted small" href="affiliate.php?signup">Don't have an account? Signup</a>
+					  <button type="submit" class="btn btn-custom form-pill" name="login">Please Login</button>
+						<a class="link-muted small float-right" href="aff-forget-password">Forgot Password?</a>
+					  <br><br>
+		        		<a class="link-muted small" href="affiliate.php?signup">Don't have an account? Signup</a>		        		
 					</form>
 				</div>				 
 				<?php }elseif (isset($_GET['signup'])){ ?>
@@ -277,7 +279,7 @@ if (isset($_POST['login'])) {
 				<div class="col-md-6 push d-lg-flex flex-column align-items-start justify-content-center">																    
 				    <h1>Become an affiliate marketer</h1>
 					<p class="">
-					Join +2000 affiliates generating revenue from Crossmusic today. You get whopping 10% commission on each successful sales conversion when you refer costomers to crossmusic.com. Generate referral links on any music of your choice and start promoting instantly. Payouts are processed monthly via Nigerian bank account with a minimum of &#8358;2,000.00.
+					Join +1000 affiliates generating revenue from Crossmusic today. You get whopping 10% commission on each successful sales conversion when you refer costomers to mycrossmusic.com. Generate referral links of your choice on any music project in <a href="paidmusic"> <b>Paid Music</b></a> and start promoting instantly. Payouts are processed monthly via Nigerian bank accounts with a minimum of &#8358;2,000.00.
 					</p>
 					<a class="btn btn-sm btn-danger px-3" href="affiliate.php?signup">
 						<i class="fas fa-shekel-sign mr-1"></i>Create Affiliate Account

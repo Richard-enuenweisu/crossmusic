@@ -17,21 +17,36 @@ if ($acct_type == 'Free Account') {
 	$singles_query = $pdo->query("SELECT * FROM singlestbl WHERE price > 0 AND acount_id = $artist_id ORDER BY id DESC");
 }
 
-
-if (isset($_GET['delete'])) {
+if (isset($_GET['block'])) {
 	# code...
-	$del = intval($_GET['delete']);
-	$get_query = $pdo->query("SELECT * FROM singlestbl WHERE id = $del");
-	$track_details = $get_query->fetch(PDO::FETCH_ASSOC);
-	$path ='../';
-	unlink($path.$track_details['short_url']);
-	unlink($path.$track_details['long_url']);
-	unlink($path.$track_details['image']);		
- 	$insert_query = $pdo->prepare(" DELETE FROM singlestbl WHERE id = :delete_id");
-	$insert_query->execute([':delete_id' =>$del]); 
-	$success = "Single Deleted Successfully! Refreshing in 2 secs.";
+	$block = intval($_GET['block']);
+ 	$del_query = $pdo->prepare("UPDATE singlestbl SET `featured`=:featured WHERE id = :block_id");
+	$del_query->execute([':featured' => 0, ':block_id' =>$block ]); 
+	$success = "Deleted Successfully! Refreshing in 2 secs.";
 	header("refresh:2;url=singles.php");
 }
+if (isset($_GET['unblock'])) {
+	# code...
+	$block = intval($_GET['unblock']);
+ 	$del_query = $pdo->prepare("UPDATE singlestbl SET `featured`=:featured WHERE id = :block_id");
+	$del_query->execute([':featured' => 1, ':block_id' =>$block ]); 
+	$success = "Recycled Successfully! Refreshing in 2 secs.";
+	header("refresh:2;url=singles.php");
+}
+// if (isset($_GET['delete'])) {
+// 	# code...
+// 	$del = intval($_GET['delete']);
+// 	$get_query = $pdo->query("SELECT * FROM singlestbl WHERE id = $del");
+// 	$track_details = $get_query->fetch(PDO::FETCH_ASSOC);
+// 	$path ='../';
+// 	unlink($path.$track_details['short_url']);
+// 	unlink($path.$track_details['long_url']);
+// 	unlink($path.$track_details['image']);		
+//  	$insert_query = $pdo->prepare(" DELETE FROM singlestbl WHERE id = :delete_id");
+// 	$insert_query->execute([':delete_id' =>$del]); 
+// 	$success = "Single Deleted Successfully! Refreshing in 2 secs.";
+// 	header("refresh:2;url=singles.php");
+// }
 
   include str_replace("\\","/",dirname(__FILE__).'/assets/include/header.php');
   include str_replace("\\","/",dirname(__FILE__).'/assets/include/headbar.php');
@@ -102,9 +117,12 @@ if (isset($_GET['delete'])) {
 												<a class="badge badge-soft-danger" href="manage_singles.php?edit=<?=$singles['id']?>">Edit single</a>							
 											</td>
 											<td class="text-center">
-												<a class="link-muted" href="singles.php?delete=<?=$singles['id']?>">
-													<i class="fa fa-trash"></i>
-												</a>											
+											<?php if ($singles['featured'] == 1) { ?>
+												<a class="badge badge-soft-danger" href="singles.php?block=<?=$singles['id']?>">Delete single</a>	
+											<?php }else { ?>
+												<a class="badge badge-soft-info" href="singles.php?unblock=<?=$singles['id']?>">Recycle single</a>
+											<?php } ?>
+			
 											</td>
 										</tr>
 										<?php endwhile ?>										

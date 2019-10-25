@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
 										<a class="btn custom-btn mb-2" href="#!">Follow Me</a>
 									</div>
  -->
-									<a class="link-muted" href="#!">
+									<a class="link-muted" href="mailto://<?=$acc_result['email'];?>">
 										<i class="fa fa-envelope mr-2"></i> Send Message
 									</a>
 								</div>

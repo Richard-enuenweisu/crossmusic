@@ -22,7 +22,14 @@ if (isset($_POST['submit'])) {
 	}
 	if (empty($errors)) {
 
-	$success = '<span class="small">Password Changed Successfully! </span>'.'<br><span id="copy">'.$link.$prefix.'</span>';
+	$actual_link = $link.$prefix;
+	$long_url = urlencode($actual_link);
+	$bitly_login = 'o_3imer2s9ir';
+	$bitly_apikey = 'R_86d9c6da47eb485bb38e814bc4fe3dd0';
+	$bitly_response = json_decode(file_get_contents("http://api.bit.ly/v3/shorten?login={$bitly_login}&apiKey={$bitly_apikey}&longUrl={$long_url}&format=json"));
+	$short_url = $bitly_response->data->url;
+
+	$success = '<span class="small">Link Generated Successfully! </span>'.'<br><span id="copy">'.$short_url.'</span>';
 	// artistLogin($u_id);
 	}
 }
@@ -56,7 +63,7 @@ if (isset($_POST['submit'])) {
 					                        <?php if(isset($success)){ ?>
 					                          <div class="form-control alert alert-success fade show" role="alert">
 					                            <i class="fa fa-check-circle alert-icon mr-3"></i>
-					                            <p> <?php echo $success; ?></p>
+					                            <p class="text-white"> <?php echo $success; ?></p>
 					                            <button class="btn custom-btn btn-sm" onclick="copyToClipboard('#copy')"><i class="fas fa-copy"></i></button>
 					                            <button type="button" class="close" aria-label="Close" data-dismiss="alert">
 					                              <span aria-hidden="true">&times;</span>
@@ -79,7 +86,10 @@ if (isset($_POST['submit'])) {
 										<button class="btn custom-btn " type="submit" name="submit">Create Link</button>			
 									</form>
 									<br>
-									<span class="small">Tip: Alwats test your link to see that it takes you to the desired page before sharing.</span>								    
+									<span class="small"><b>Tips:</b> <br>
+									1. The URL to enter is the link of the music project in paid music from the browser URL<br>
+									2. Always test your link to see that it takes you to the desired page before sharing.<br>
+									</span>								    
 								</div>
 							</div>
 						</div>

@@ -13,6 +13,16 @@
         $('.mediPlayer').mediaPlayer();
     }); 
   </script>
+
+  <script type="text/javascript">
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+} 
+</script>
   
   <script src="music-player/jquery-music.js"></script>
   <script src="music-player/player.js"></script>

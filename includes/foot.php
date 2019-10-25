@@ -23,13 +23,13 @@
 <footer id="footer" class="bd-footer">
   <div class="container-fluid">
     <ul class="bd-footer-links">
-      <li><a href="pricing.php">Let's Do Business</a></li>
-      <li><a href="freemusic.php">Free music</a></li>
-      <li><a href="paidmusic.php">Paid music</a></li>
-      <li><a href="">Latest music</a></li>
-      <li><a href="">Singles</a></li>
-      <li><a href="">Albums</a></li>
-      <li><a href="">FAQ</a></li>
+      <li><a href="pricing">Let's Do Business</a></li>
+      <li><a href="freemusic">Free music</a></li>
+      <li><a href="paidmusic">Paid music</a></li>
+      <li><a href="paidlisting?tracks">Tracks</a></li>
+      <li><a href="paidlisting?singles">Singles</a></li>
+      <li><a href="paidlisting?albums">Albums</a></li>
+      <li><a href="faq">FAQ</a></li>
     </ul>
 
 	  <ul class="list-unstyled list-inline social text-center">
@@ -40,8 +40,8 @@
 	    <li class="list-inline-item"><a href="mailto://hello@"><i class="fa fa-google-plus"></i></a></li>
 	    <!-- <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li> -->
 	  </ul>    
-    <p>Promoting the cross in sound and heavenly melodies | <a href="">Privacy Policy</a> | <a href="">Terms and Condition</a></p>
-<!--   <a class="btn-fab" href="cart.php">
+    <p>Promoting the cross in sounds with heavenly melodies | <a href="#">Privacy Policy</a> | <a href="#">Terms and Condition</a></p>
+<!--   <a class="btn-fab" href="cart">
     <span class="cart-count"><?=(isset($quantity))?$quantity:''?></span>
     <i class="fa fa-shopping-cart" aria-hidden="true" ></i>
   </a>  -->     

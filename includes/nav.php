@@ -8,7 +8,7 @@
     </style>
     <nav>
       <div class="navbar navbar-expand-lg bsnav bsnav-light">
-        <a class="navbar-brand" href="index.php"><img src="images/logo.png"></a>
+        <a class="navbar-brand" href="index"><img src="images/logo.png"></a>
         <button class="navbar-toggler toggler-spring"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-md-end">
           <ul class="navbar-nav navbar-mobile mr-0">
@@ -30,21 +30,25 @@
                 <li class="nav-item"><a class="nav-link" href="#">Other action</a></li>
               </ul>
             </li> -->
-            <li class="nav-item"><a class="nav-link" href="pricing.php">Let's do Business</a></li>
-            <li class="nav-item"><a class="nav-link" href="freemusic.php">Free music</a></li>
-            <li class="nav-item"><a class="nav-link" href="paidmusic.php">Paid music</a></li>
-            <li class="nav-item"><a class="nav-link" href="contact.php">Contact us</a></li>
+            <li class="nav-item"><a class="nav-link" href="pricing">Let's do Business</a></li>
+            <li class="nav-item"><a class="nav-link" href="freemusic">Free music</a></li>
+            <li class="nav-item"><a class="nav-link" href="paidmusic">Paid music</a></li>
+            <li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact us</a></li>
             <li class="nav-item dropdown dropdown-right"><a class="nav-link" href="#">Account <i class="caret"></i></a>
               <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="login.php">Log in</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#myModal-1" href="">Create account</a></li>
-                <?php if (isset($_SESSION['USER_ID'])){?>
-                  <li class="nav-item"><a class="nav-link" href="mypage.php">My Page</a></li>
-                <?php } ?>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Log out</a></li>
+                <?php if (isset($_SESSION['USER_ID'])){ ?>
+                  <li class="nav-item"><a class="nav-link" href="mypage">My Page</a></li>
+                <?php } ?>                 
+                <?php if (isset($_SESSION['USER_ID']) || isset($_SESSION['ARTIST_ID']) || isset($_SESSION['AFFILIATE_ID']) ){?>
+                  <li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+                <?php }else { ?>
+                  <li class="nav-item"><a class="nav-link" href="login">Log in</a></li>
+                <?php } ?>                                                              
               </ul>
             </li>
-            <li class="nav-item"><a class="btn btn-sm btn-primary" href="affiliate.php" style="margin-top: 10px;">Affiliate Marketer</a></li>                      
+            <li class="nav-item"><a class="btn btn-sm btn-custom" href="affiliate" style="margin-top: 5px;">Affiliate Marketer</a></li>                      
           </ul>
         </div>
       </div>
@@ -68,14 +72,14 @@
                       <div class="nav-user-category">
                           <h6 class="h6">As a</h6>
                           <h1>USER</h1>
-                          <a href="register.php" class="btn btn-small btn-custom">Register</a>
+                          <a href="register" class="btn btn-small btn-custom">Register</a>
                       </div>
                     </div>
                     <div class="col">
                       <div class="nav-user-category">
                           <h6 class="h6">As an</h6>
                           <h1>Artist</h1>
-                          <a href="pricing.php" class="btn btn-small btn-custom">Register</a>
+                          <a href="pricing" class="btn btn-small btn-custom">Register</a>
                       </div>
                     </div>                    
                   </div>

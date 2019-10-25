@@ -2,16 +2,17 @@
 
   if (isset($_GET['paidtracks'])) {
   	# code...
-  	$title = $_GET['paidtracks'];
+    $title = $_GET['paidtracks'];
+    $songby = $_GET['songby'];
   	$price = 0;
-    $stmt = $pdo->prepare("SELECT * FROM trackstbl WHERE title =:title AND price >:price");
-    $stmt2 = $pdo->prepare("SELECT * FROM trackstbl WHERE title =:title AND price >:price");
-    $stmt->execute([':title' => $title, ':price' => $price]);
-    $stmt2->execute([':title' => $title, ':price' => $price]);
+    $stmt = $pdo->prepare("SELECT * FROM trackstbl WHERE title =:title AND song_by =:song_by AND price >:price");
+    $stmt2 = $pdo->prepare("SELECT * FROM trackstbl WHERE title =:title AND song_by =:song_by AND price >:price");
+    $stmt->execute([':title' => $title, ':song_by'=>$songby, ':price' => $price]);
+    $stmt2->execute([':title' => $title, ':song_by'=>$songby, ':price' => $price]);
     $prev_result = $stmt->fetch(PDO::FETCH_ASSOC);
    	if (is_null($prev_result) || empty($prev_result)) {
 	# code...
-	header('Location:paidmusic.php');
+	header('Location:paidmusic.php?user=false');
 	}  
   $category = 'tracks'; 
   //get account id
@@ -24,15 +25,16 @@
   if (isset($_GET['paidsingles'])) {
   	# code...
   	$title = $_GET['paidsingles'];
+    $songby = $_GET['songby'];
   	$price = 0;
-    $stmt = $pdo->prepare("SELECT * FROM singlestbl WHERE title =:title AND price >:price");
-    $stmt2 = $pdo->prepare("SELECT * FROM singlestbl WHERE title =:title AND price >:price");
-    $stmt->execute([':title' => $title, ':price' => $price]);
-    $stmt2->execute([':title' => $title, ':price' => $price]);
+    $stmt = $pdo->prepare("SELECT * FROM singlestbl WHERE title =:title AND song_by =:song_by AND price >:price");
+    $stmt2 = $pdo->prepare("SELECT * FROM singlestbl WHERE title =:title AND song_by =:song_by AND price >:price");
+    $stmt->execute([':title' => $title, ':song_by'=>$songby, ':price' => $price]);
+    $stmt2->execute([':title' => $title, ':song_by'=>$songby, ':price' => $price]);
     $prev_result = $stmt->fetch(PDO::FETCH_ASSOC);
    	if (is_null($prev_result) || empty($prev_result)) {
 	# code...
-	header('Location:paidmusic.php');
+	header('Location:paidmusic.php?user=false');
 	} 
   $category = 'singles';  
   //get account id  
@@ -40,14 +42,15 @@
   }
   if (isset($_GET['paidalbums'])) {
   	# code...
-  	$title = $_GET['paidalbums'];
+    $title = $_GET['paidalbums'];
+    $songby = $_GET['songby'];
   	$price = 0;
-    $stmt = $pdo->prepare("SELECT * FROM albumstbl WHERE title =:title AND price >:price");
-    $stmt->execute([':title' => $title, ':price' => $price]);
+    $stmt = $pdo->prepare("SELECT accounttbl.company_name, albumstbl.id, albumstbl.title, albumstbl.price, albumstbl.featured, albumstbl.image, albumstbl.account_id FROM albumstbl INNER JOIN accounttbl ON accounttbl.id = albumstbl.account_id WHERE albumstbl.title =:title AND accounttbl.company_name =:song_by AND albumstbl.price >:price");
+    $stmt->execute([':title' => $title, ':song_by'=>$songby, ':price' => $price]);
     $prev_result = $stmt->fetch(PDO::FETCH_ASSOC);
    	if (is_null($prev_result) || empty($prev_result)) {
 	# code...
-	header('Location:paidmusic.php');
+  header('Location:paidmusic.php?user=false');
 	}
 	$main_category = 'albums';      
 	$category = 'tracks';  

@@ -21,7 +21,7 @@ function login($user_id)
 
 	// $db->query("UPDATE users SET last_login = '$date' WHERE id = '$user_id'");
 	$_SESSION['success_flash'] = 'You are now logged in';
-	header('Location: index.php?login=true');
+	header('Location: mypage.php?login=true');
 }
 function artistLogin($user_id)
 {
@@ -82,6 +82,5 @@ function getUserIpAddr(){
     }
     return $ip;
 }
-
 
 ?>

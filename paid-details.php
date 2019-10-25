@@ -18,7 +18,6 @@ if (isset($_POST['purchase'])) {
 	$amount = ((isset($_POST['amount']))?sanitize($_POST['amount']): '');
 	$email = ((isset($_POST['email']))?sanitize($_POST['email']): ''); 
 	$errors = array();	
-
 	// echo $prod_id. '<br>'.$category.'<br>'.$amount.'<br>'.$email.'<br>'.$user_id; 
 	if ($category == 'tracks' || $category =='singles') {
 		# code...
@@ -32,7 +31,7 @@ if (isset($_POST['purchase'])) {
 	}
 	if ($category == 'albums') {
 		# code...
-		if ($amount == '500.00' || $amount >= '1000.00') {
+		if ($amount >= '200') {
 			# code...
 			$process = 'ok';
 		}
@@ -42,7 +41,7 @@ if (isset($_POST['purchase'])) {
 	}	
 	if (empty($errors) && $process == 'ok') {
 		# code...			
-		$sys_price = 0.2 * $amount;
+		$sys_price = 0.3 * $amount;
 		$artist_price = $amount - $sys_price;
 		$aff_price = 0.10 * $amount;
 
@@ -159,6 +158,15 @@ if (isset($_POST['purchase'])) {
 		header('Location: ' . $tranx['data']['authorization_url']);
 	}
   }  
+  // search script
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "https") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$long_url = urlencode($actual_link);
+$bitly_login = 'o_3imer2s9ir';
+$bitly_apikey = 'R_86d9c6da47eb485bb38e814bc4fe3dd0';
+$bitly_response = json_decode(file_get_contents("http://api.bit.ly/v3/shorten?login={$bitly_login}&apiKey={$bitly_apikey}&longUrl={$long_url}&format=json"));
+$short_url = $bitly_response->data->url;
+
+  include str_replace("\\","/",dirname(__FILE__).'/includes/search.php');   
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
@@ -166,27 +174,47 @@ if (isset($_POST['purchase'])) {
 	<div class="row">
 		<div class="music-page-flex">
 		    <div class="col-md-8 pusher-3">
-		        <h1>Grow as a workman</h1>
-		        <p>
-		        Week in, week out, we are totally sold out to seeking the face of God for his seasonal counsel for his church to equip you. We hope that these sermons help you growth. 
-				</p>
-				  <ul class="list-unstyled list-inline social pull-right">
+			      <h1>Get your heart songs</h1>
+			      <p>
+			      Go head over heels with your next favorite song or artist. Crossmusic has over +2000 tracks for you to browse, listen, buy or download. Use our elastic search to find song or music.
+			      </p>
+<!-- 				  <ul class="list-unstyled list-inline social pull-right">
 				    <li class="list-inline-item"><a href="">
-				      <i class="fa fa-facebook"></i></a></li>
+				    <i class="fa fa-facebook"></i></a></li>
 				    <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
 				    <li class="list-inline-item"><a href=""><i class="fa fa-instagram"></i></a></li>
-				    <!-- <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li> -->
-				  </ul> 			
-			    <div id="custom-search-input">
-		            <div class="input-group">
-		                <input type="text" class="search-query form-control" placeholder="Search" />
-		                <span class="input-group-btn">
-		                    <button type="button" disabled>
-		                        <span class="fa fa-search"></span>
-		                    </button>
-		                </span>
-		            </div>
-		        </div>
+				    <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+				  </ul>  -->			
+		          <div id="custom-search-input">
+		            <form method="POST" action="search-result.php">
+		              <div class="input-group">
+		                <select class="sinput form-control" name="category" style="border-radius:0px;">
+		                  <option>-- Category --</option>
+		                  <option>Albums</option>
+		                  <option>Tracks</option>
+		                  <option>Singles</option>
+		                </select>
+		                <select class="sinput form-control" name="type" style="border-radius:0px;">
+		                  <option>-- Type --</option>
+		                  <option>Free</option>
+		                  <option>Paid</option>
+		                </select>                
+		                <input type="text" class="sinput form-control" name="title" placeholder="Title">
+		                <!-- <div class="input-group-append"> -->
+		                  <button type="submit" class="form-control" name="search" style="color: #fff;background-color: #007bff;border-color: #007bff;border-radius:0px;width: 10%;padding: 10px 0px 7px 0px;"><i class="fa fa-search"></i></button>
+		                <!-- </div>                              -->
+		              </div> 
+		              <?php if(isset($errors)){?> 
+		              <!-- alert -->
+		              <div class="alert text-danger alert-dismissible fade show" role="alert">
+		                <?=display_errors($errors)?>
+		                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		                  <span aria-hidden="true">&times;</span>
+		                </button>
+		              </div>                 
+		              <?php } ?>                          
+		            </form>           
+		          </div>
 				<div class="row music-media pusher">
 					<div class="col-sm-12 col-md-12">
 					    <!-- <form  method="post" action="paid-details.php?<?=$urlquery?>">					 -->
@@ -216,8 +244,10 @@ if (isset($_POST['purchase'])) {
 								<?php endif ?>						  		                  	                  
 						  </div>
 						  <div class="col-md-8">	
-						  <?php while($result = $stmt2->fetch(PDO::FETCH_ASSOC)) : 
-						  	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+						  	<p class="push share-tiny-link">Share: <span id="copy"><?=$short_url?> </span> 
+							<button class="btn btn-sm float-right text-white" onclick="copyToClipboard('#copy')"><i class="fa fa-copy"></i></button>
+						  </p>
+						  <?php while($result = $stmt2->fetch(PDO::FETCH_ASSOC)) : 						  	
 							//count dowload script
 							if (isset($category)) {
 								# code...
@@ -240,14 +270,14 @@ if (isset($_POST['purchase'])) {
 								    <script>
 									$("#share").jsSocials({
 										shareIn: "popup",									
-									    url: "<?=$actual_link?>",
+									    url: "<?=$short_url?>",
 									    text: "♫ <?=$prev_result['title']?> - Get the song! | Get free unlimited songs uploads. Crossmusic proffer a much more simpler way to sell your gospel music and get you going.",
 									    showLabel: true,
 									    showCount: "inside",
 									    shares: ["twitter", "facebook", "whatsapp"]
 									});
 								    </script>									
-									<div class="music-downloads">
+									<div class="music-downloads">										
 										<span class="small">Downloads <?=$count['count']?> <i class="fa fa-cloud-download"></i></span>
 									</div>
 
@@ -271,8 +301,9 @@ if (isset($_POST['purchase'])) {
 								  	<div class="mediPlayer">
 									    <audio class="listen" preload="none" data-size="50" src="<?=$result['short_url']?>"></audio>
 									</div>
-									<div class="music-descriptions">							
-									    <span class="small"><?=$result['title']?></span><br>									
+									<div class="music-descriptions">	
+									    <span class="small"><?=$result['song_by']?></span><br>												
+									    <span><?=$result['title']?></span><br>									
 										<?php if (!isset($_GET['freealbum'])): ?>
 											<p><?=$result['duration']?></p>								
 										<?php endif ?>										

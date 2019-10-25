@@ -7,47 +7,43 @@
   // get free singles
   $stmt2 = $pdo->query("SELECT * FROM singlestbl WHERE price = 0 AND featured = 1 ORDER BY id DESC LIMIT 12");
   // get free albums
-  $stmt3 = $pdo->query("SELECT * FROM albumstbl WHERE price = 0 AND featured = 1 ORDER BY id DESC LIMIT 12");  
+  $stmt3 = $pdo->query("SELECT * FROM albumstbl INNER JOIN accounttbl ON accounttbl.id = albumstbl.account_id WHERE albumstbl.price = 0 AND albumstbl.featured = 1 ORDER BY albumstbl.id DESC LIMIT 12");  
+
+  // search script
+  include str_replace("\\","/",dirname(__FILE__).'/includes/search.php');
 
   include str_replace("\\","/",dirname(__FILE__).'/includes/head.php');
   include str_replace("\\","/",dirname(__FILE__).'/includes/nav.php');
 ?>
-
+<style type="text/css">
+  .form-control{    
+  }
+  .sinput{
+  background-color: #eee;
+  }
+  button.search-btn{
+      
+  }
+</style>
 <div class="container">
   <div class="row">
-	<div class="page-search-flex">
-	    <div class="col-md-8 pusher-3">
-	        <h1>Get your heart songs</h1>
-	        <p>
-	        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-			    </p>
-    	    <div id="custom-search-input">
-                <div class="input-group">
-                    <input type="text" class="search-query form-control" placeholder="Search" />
-                    <span class="input-group-btn">
-                        <button type="button" disabled>
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </div>            
-	    </div>		
-	</div>        
+    <?php include str_replace("\\","/",dirname(__FILE__).'/includes/elastic-search.php');  ?>      
   </div>
 
   <div class="row display">
     <div class="col-lg-12 header-title pusher">
       <span>Latest Songs</span>
-      <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
+      <a href="freelisting.php?tracks"><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
     <?php while($l_song = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
+    <div class="col-md-4 col-sm-4 col-lg-2 col-6" style="padding: 5px;">
       <div class="music-ds">
-        <a href="free-details.php?freetracks=<?=$l_song['title']?>">
+        <a href="free-details.php?freetracks=<?=$l_song['title']?>&songby=<?=$l_song['song_by']?>">
           <div class="music-img-holder">
             <img src="<?=$l_song['image']?>">
           </div>
           <div class="music-dt">
+            <span class="small"><?=$l_song['song_by']?></span>
             <p><?=$l_song['title']?></p>
           </div>
         </a>
@@ -67,16 +63,17 @@
   <div class="row display">
     <div class="col-lg-12 header-title pusher">
       <span>Latest Singles</span>
-      <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
+      <a href="freelisting.php?singles"><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
     <?php while($l_songles = $stmt2->fetch(PDO::FETCH_ASSOC)) : ?>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
+    <div class="col-md-4 col-sm-4 col-lg-2 col-6" style="padding: 5px;">
       <div class="music-ds">
-        <a href="free-details.php?freesingles=<?=$l_songles['title']?>">
+        <a href="free-details.php?freesingles=<?=$l_songles['title']?>&songby=<?=$l_songles['song_by']?>">
           <div class="music-img-holder">
             <img src="<?=$l_songles['image']?>">
           </div>
           <div class="music-dt">
+            <span class="small"><?=$l_songles['song_by']?></span>
             <p><?=$l_songles['title']?></p>
           </div>
         </a>
@@ -90,16 +87,17 @@
   <div class="row display">
     <div class="col-lg-12 header-title pusher">
       <span>Latest Albums</span>
-      <a href=""><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
+      <a href="freelisting.php?albums"><span class="pull-right">See All <i class="fa fa-arrow-right"></i></span></a>
     </div>
     <?php while($l_albums = $stmt3->fetch(PDO::FETCH_ASSOC)) : ?>
-    <div class="col-md-4 col-sm-4 col-lg-2" style="padding: 5px;">
+    <div class="col-md-4 col-sm-4 col-lg-2 col-6" style="padding: 5px;">
       <div class="music-ds">
-        <a href="free-details.php?freealbums=<?=$l_albums['title']?>">
+        <a href="free-details.php?freealbums=<?=$l_albums['title']?>&songby=<?=$l_albums['company_name']?>">
           <div class="music-img-holder">
             <img src="<?=$l_albums['image']?>">
           </div>
           <div class="music-dt">
+            <span class="small"><?=$l_albums['company_name']?></span>
             <p><?=$l_albums['title']?></p>
           </div>
         </a>
